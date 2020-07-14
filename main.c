@@ -6,7 +6,7 @@
 /*   By: tmendes- <tmendes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/26 13:12:18 by tmendes-          #+#    #+#             */
-/*   Updated: 2020/07/10 08:57:52 by tmendes-         ###   ########.fr       */
+/*   Updated: 2020/07/14 13:14:30 by tmendes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,19 +24,28 @@ int main()
 	int		*iptr;
 	int		nptr;
 	double	nbr;
+	char	*str;
+	int 	dig;
 
 	ptr = &nbr;
 
-	nbr = -12345.1234567890;
+	//nbr = -0000000.00000012345671234567898760000000001234567890;
+	nbr = -0.0;
 
+	dig = 3;
+	str = ft_ftoa(nbr, 150);
+	str++;
+	dig = 1;
+	dig++;
+	
 	num = (int)nbr;
 	chr = 'T';
 	ptr = &chr;
 	iptr = &nptr;
-	print1 = printf("\nOr_Printf: %% hexa: %d \\o/ %n%p %015.3e", num, iptr, ptr, nbr);
+	print1 = printf("\nOr_Printf: %% hexa: %d \\o/ %n%p %e", num, iptr, ptr, nbr);
 	printf(" %d\n",print1);
 	*iptr = 0;
-	print2 = ft_printf("\nFt_Printf: %% hexa: %d \\o/ %n%p %.3f", num, iptr, ptr, nbr);
+	print2 = ft_printf("\nFt_Printf: %% hexa: %d \\o/ %n%p %.3e", num, iptr, ptr, nbr);
 	printf(" %d\n\n",print2);
 	return(0);
 }

@@ -6,7 +6,7 @@
 /*   By: tmendes- <tmendes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/26 13:31:44 by tmendes-          #+#    #+#             */
-/*   Updated: 2020/07/10 11:50:42 by tmendes-         ###   ########.fr       */
+/*   Updated: 2020/07/14 13:29:55 by tmendes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,77 @@
 ** maintaining the result in the pointer *dst.
 */
 
-static char	*conversion(char *begin)
+static char	*p_exp(char *nbr, int prec)
+{
+	char	*exp;
+	int		k;
+	char	chr;
+
+	k = 1;
+	while ( *(nbr + k) != '.')
+		k++;
+	ft_memmove((nbr + k), (nbr + k + 1), prec + 1);
+	chr = *(nbr + prec + 1);
+	*(nbr + prec + 1) = 0;
+	if ( chr >= '5')
+		nbr = round_str(nbr);
+	ft_memmove((nbr + 2), (nbr + 1), prec + 1);
+	*(nbr + 1) = '.';
+	nbr = join_ptr(nbr,"e+");
+	k--;
+	if (k < 10)
+		nbr = join_ptr(nbr,"0");
+	exp = ft_llitoa(k, 10, 'a');
+	nbr = join_ptr(nbr, exp);
+	free(exp);
+	exp = NULL;
+	return (nbr);
+}
+
+static char	*n_exp(char *nbr, int prec)
+{
+	char	*point;
+	char	*exp;
+	int		k;
+	char	chr;
+
+	point = ft_strchr(nbr, '.');
+	k = 1;
+	while ( *(point + k) == '0')
+		k++;
+	if ( *(point + k) == 0)
+	{
+		*(nbr + prec + 2) = 0;
+		nbr = join_ptr(nbr,"e+00");
+		return (nbr);
+	}
+	nbr = ft_memmove(nbr, (point + k), prec + 2);
+	chr = *(nbr + prec + 1);
+	*(nbr + prec + 1) = 0;
+	if ( chr >= '5')
+		nbr = round_str(nbr);
+	ft_memmove((nbr + 2), (nbr + 1), prec + 1);
+	*(nbr + 1) = '.';
+	nbr = join_ptr(nbr,"e-");
+	if (k < 10)
+		nbr = join_ptr(nbr,"0");
+	exp = ft_llitoa(k, 10, 'a');
+	nbr = join_ptr(nbr, exp);
+	free(exp);
+	exp = NULL;
+	return (nbr);
+}
+
+static char	*scntfc_not(char *nbr, int prec)
+{
+	if (*nbr == '0')
+		nbr = n_exp(nbr, prec);
+	else
+		nbr = p_exp(nbr, prec);
+	return (nbr);
+}
+
+char	*str_srch(char *begin, char *set)
 {
 	int		i;
 	char	*conv;
@@ -25,7 +95,7 @@ static char	*conversion(char *begin)
 	i = 0;
 	while (*(begin + i))
 	{
-		conv = ft_strchr("cspdiuxX%nfge", *(begin + i));
+		conv = ft_strchr(set, *(begin + i));
 		if (conv)
 			return (begin + i);
 		i++;
@@ -35,10 +105,12 @@ static char	*conversion(char *begin)
 
 static char *format_txt(char *begin, char *end, va_list ap, char *final)
 {
-	char	*txt;
-	char	*flg;
-	char	conv;
-	char	*hex;
+	char		*txt;
+	char		*flg;
+	char		conv;
+	char		*hex;
+	char		*aux;
+	long double	flt;
 
 	conv = *end;
 	*end = 0;
@@ -106,17 +178,29 @@ static char *format_txt(char *begin, char *end, va_list ap, char *final)
 	}
 	if (conv == 'f')
 	{
-		txt = ft_ftoa((long double)va_arg(ap, double), 3);
+		flt = (long double)va_arg(ap, double);
+		txt = ft_ftoa( flt, 6);
 		return (txt);
 	}
 	if (conv == 'g')
 	{
-		txt = ft_ftoa((long double)va_arg(ap, double), 3);
+		flt = (long double)va_arg(ap, double);
+		txt = ft_ftoa( flt, 6);
 		return (txt);
 	}
 	if (conv == 'e')
 	{
-		txt = ft_ftoa((long double)va_arg(ap, double), 3);
+		flt = (long double)va_arg(ap, double);
+		if ((1 / flt) < 0)
+		{
+			flt = -flt;
+			txt = ft_strdup("-");
+		}
+		else
+			txt = ft_strdup("");
+		aux = ft_ftoa( flt, 150);
+		aux = scntfc_not(aux, 6);
+		txt = join_ptr(txt,aux);
 		return (txt);
 	}
 	return (NULL);
@@ -140,7 +224,7 @@ int			ft_printf(const char *format, ...)
 		{
 			*begin = 0;
 			final = join_ptr(final, ptr);
-			if (!(end = conversion(begin + 1)) ||
+			if (!(end = str_srch(begin + 1, "cspdiuxX%nfge")) ||
 			!(txt = format_txt(begin + 1, end, ap, final)) ||
 			!(final = join_ptr(final, txt)) ||
 			!(ptr = ft_memmove(ptr, (end + 1), ft_strlen(end + 1) + 1)))

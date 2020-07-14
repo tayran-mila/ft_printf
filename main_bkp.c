@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   main_bkp.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tmendes- <tmendes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/26 13:12:18 by tmendes-          #+#    #+#             */
-/*   Updated: 2020/07/09 13:37:56 by tmendes-         ###   ########.fr       */
+/*   Updated: 2020/07/10 19:19:28 by tmendes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -164,7 +164,7 @@ int main()
 	return(0);
 }*/
 
-/*static t_llint	pot_b(t_llint nbr, int base)
+static t_llint	pot_b(t_llint nbr, int base)
 {
 	t_llint	pot;
 
@@ -227,9 +227,9 @@ int main(void)
 	printf("result = %.Lf\n", result);
 	printf("float2 = %s\n", final);
 	return (0);
-}*/
+}
 
-static int	nbr_digit(long double nbr)
+/*static int	nbr_digit(long double nbr)
 {
 	int			dig;
 
@@ -287,4 +287,4 @@ int main()
 	printf ("\n%.10Lf %ld %d\n", pot, sizeof(long double), dig);
 
 	return (0);
-}
+}*/

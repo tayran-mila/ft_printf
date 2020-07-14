@@ -6,7 +6,7 @@
 /*   By: tmendes- <tmendes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/09 13:52:39 by tmendes-          #+#    #+#             */
-/*   Updated: 2020/07/10 08:09:21 by tmendes-         ###   ########.fr       */
+/*   Updated: 2020/07/14 07:03:28 by tmendes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ char	*join_ptr(char *dst, char *src)
 	return (dst);
 }
 
-static char *round_str(char *final)
+char *round_str(char *final)
 {
 	int	k;
 
