@@ -6,7 +6,7 @@
 /*   By: tmendes- <tmendes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/26 13:31:44 by tmendes-          #+#    #+#             */
-/*   Updated: 2020/07/14 13:29:55 by tmendes-         ###   ########.fr       */
+/*   Updated: 2020/07/15 12:57:38 by tmendes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,20 @@
 ** This function concatenates two pointers *dst and *src and
 ** maintaining the result in the pointer *dst.
 */
+
+static char *unpad(char *nbr)
+{
+	int	k;
+
+	k = ft_strlen(nbr) - 1;
+	while ((*(nbr + k) == '0' || *(nbr + k) == '.') &&
+	k > 0 && *(nbr + (k - 1)) != '-')
+	{
+		*(nbr + k) = 0;
+		k--;
+	}
+	return (nbr);
+}
 
 static char	*p_exp(char *nbr, int prec)
 {
@@ -111,6 +125,8 @@ static char *format_txt(char *begin, char *end, va_list ap, char *final)
 	char		*hex;
 	char		*aux;
 	long double	flt;
+	int			prec;
+	int			exp;
 
 	conv = *end;
 	*end = 0;
@@ -184,8 +200,31 @@ static char *format_txt(char *begin, char *end, va_list ap, char *final)
 	}
 	if (conv == 'g')
 	{
+		prec = 6;
 		flt = (long double)va_arg(ap, double);
-		txt = ft_ftoa( flt, 6);
+		exp = nbr_exp(flt);
+		if (exp < -4 || exp >= prec)
+		{
+			if ((1 / flt) < 0)
+			{
+				flt = -flt;
+				txt = ft_strdup("-");
+			}
+			else
+				txt = ft_strdup("");
+			if (exp < 0)
+				exp = -exp;
+			aux = ft_ftoa(flt, exp + prec + 1);
+			aux = scntfc_not(aux, prec -1);
+			txt = join_ptr(txt,aux);
+		}
+		else
+		{
+			//if (exp < 0)
+				//exp = -exp;
+			txt = ft_ftoa( flt, prec - (exp + 1));		
+		}
+		txt = unpad(txt);
 		return (txt);
 	}
 	if (conv == 'e')

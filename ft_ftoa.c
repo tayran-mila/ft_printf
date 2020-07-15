@@ -6,7 +6,7 @@
 /*   By: tmendes- <tmendes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/09 13:52:39 by tmendes-          #+#    #+#             */
-/*   Updated: 2020/07/14 07:03:28 by tmendes-         ###   ########.fr       */
+/*   Updated: 2020/07/15 12:42:59 by tmendes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ static char *fraction(long double nbr, int dig)
 	return (final);
 }
 
-static int	nbr_digit(long double nbr)
+int	nbr_digit(long double nbr)
 {
 	int			dig;
 
@@ -131,7 +131,7 @@ char *ft_ftoa(long double nbr, int dig)
 	char	*frctn;
 	char	*itger;
 
-	if (nbr < 0)
+	if (1/nbr < 0)
 	{
 		nbr = -nbr;
 		final = ft_strdup("-");
