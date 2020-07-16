@@ -6,16 +6,54 @@
 /*   By: tmendes- <tmendes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/26 13:31:44 by tmendes-          #+#    #+#             */
-/*   Updated: 2020/07/15 12:57:38 by tmendes-         ###   ########.fr       */
+/*   Updated: 2020/07/16 15:46:38 by tmendes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libftprintf.h"
+#include <stdio.h>
 
 /*
 ** This function concatenates two pointers *dst and *src and
 ** maintaining the result in the pointer *dst.
 */
+
+static t_llint	pot_b( int base,  int exp)
+{
+	t_llint	pot;
+
+	if (exp <= 0)
+		pot = 1;
+	else
+		pot = base * pot_b(base, exp - 1);
+	return (pot);
+}
+
+
+int	nbr_exp(long double nbr)
+{
+	int			nbr_i;
+	int			k;
+
+	if (1/nbr < 0)
+		nbr = -nbr;
+	if(nbr == 0)
+		return (0);
+	else if (nbr >= 1)
+		return ( (nbr_digit(nbr) - 1));
+	else
+	{
+		k = 0;
+		nbr_i = (int)nbr;
+		while (nbr_i == 0)
+		{
+			k--;
+			nbr_i = (int)(10*nbr);
+			nbr = (10*nbr) - (long double)nbr_i;
+		}
+		return (k);
+	}
+}
 
 static char *unpad(char *nbr)
 {
@@ -117,24 +155,109 @@ char	*str_srch(char *begin, char *set)
 	return (NULL);
 }
 
+static t_fields	flag( t_fields fld)
+{
+	char	*flags;
+
+	flags = "# +0-";
+	fld.flag = 0;
+	fld.j = 0;
+	fld.k = 0;
+	while (*(flags + fld.j) != 0)
+	{
+		if ( *(fld.str + fld.k) == *(flags + fld.j))
+		{
+			if ((fld.flag/pot_b(10, fld.j)%10) == 0)
+				fld.flag += pot_b(10, fld.j);
+			fld.k++;
+			fld.j = 0;
+		}
+		else
+			fld.j++;
+	}
+	fld.pstn = (fld.str + fld.k);
+	return (fld);
+}
+
+static t_fields	w_or_p( t_fields fld, char chr)
+{
+	char	*nbrs;
+
+	nbrs = "1234567890";
+	fld.aux = 0;
+	fld.j = 0;
+	fld.k = 0;
+	while (*(nbrs + fld.j) != 0)
+	{
+		if ( *(fld.pstn + fld.k) == *(nbrs + fld.j))
+		{
+			fld.aux = 10*fld.aux + *(nbrs + fld.j) - '0';
+			fld.k++;
+			fld.j = 0;
+		}
+		else
+			fld.j++;
+	}
+	fld.pstn = (fld.pstn + fld.k);
+	if (chr == 'w')
+		fld.width = fld.aux;
+	else if (chr == 'p')
+		fld.prec = fld.aux;
+	return (fld);
+}
+
+static t_fields init_fields( t_fields fld)
+{
+	fld.flag = 0;
+	fld.pnt_w = 0;
+	fld.width = 0;
+	fld.pnt_p = 0;
+	fld.prec = 6;
+	fld.len_mod = 0;
+	fld.str = NULL;
+	fld.pstn = NULL;
+	fld.j = 0;
+	fld.k = 0;
+	fld.aux = 0;
+	return (fld);
+}
+
 static char *format_txt(char *begin, char *end, va_list ap, char *final)
 {
 	char		*txt;
-	char		*flg;
 	char		conv;
 	char		*hex;
 	char		*aux;
 	long double	flt;
-	int			prec;
 	int			exp;
+	t_fields	fields;
 
+	fields = init_fields(fields);
 	conv = *end;
 	*end = 0;
-	flg = ft_strdup(begin);
-	ft_putstr_fd("@", 1);
-	ft_putstr_fd(flg, 1);
-	ft_putstr_fd("@", 1);
+	fields.str = ft_strdup(begin);
 	hex = ft_strdup("0x");
+	
+	fields = flag(fields);
+	if ( *(fields.pstn) == '*')
+	{
+		fields.pnt_w = 1;
+		fields.pstn++;
+	}
+	else
+		fields = w_or_p(fields, 'w');
+	if ( *(fields.pstn) == '.' && *(fields.pstn + 1) == '*')
+	{
+		fields.pnt_p = 1;
+		fields.pstn += 2;
+	}
+	else if ( *(fields.pstn) == '.')
+	{
+		fields.pstn++;
+		fields = w_or_p(fields, 'p');
+	}
+
+
 	if (conv == 'c')
 	{
 		txt = ft_strdup("");
@@ -177,7 +300,7 @@ static char *format_txt(char *begin, char *end, va_list ap, char *final)
 	}
 	if (conv == '%')
 	{
-		if (ft_strlen(flg) == 0)
+		if (ft_strlen(fields.str) == 0)
 		{
 			txt = ft_strdup("%");
 			return (txt);
@@ -200,10 +323,9 @@ static char *format_txt(char *begin, char *end, va_list ap, char *final)
 	}
 	if (conv == 'g')
 	{
-		prec = 6;
 		flt = (long double)va_arg(ap, double);
 		exp = nbr_exp(flt);
-		if (exp < -4 || exp >= prec)
+		if (exp < -4 || exp >= fields.prec)
 		{
 			if ((1 / flt) < 0)
 			{
@@ -214,22 +336,20 @@ static char *format_txt(char *begin, char *end, va_list ap, char *final)
 				txt = ft_strdup("");
 			if (exp < 0)
 				exp = -exp;
-			aux = ft_ftoa(flt, exp + prec + 1);
-			aux = scntfc_not(aux, prec -1);
+			aux = ft_ftoa(flt, exp + fields.prec + 1);
+			aux = unpad(aux);
+			aux = scntfc_not(aux, fields.prec -1);
 			txt = join_ptr(txt,aux);
 		}
 		else
-		{
-			//if (exp < 0)
-				//exp = -exp;
-			txt = ft_ftoa( flt, prec - (exp + 1));		
-		}
+			txt = ft_ftoa( flt, fields.prec - (exp + 1));		
 		txt = unpad(txt);
 		return (txt);
 	}
 	if (conv == 'e')
 	{
 		flt = (long double)va_arg(ap, double);
+		exp = nbr_exp(flt);
 		if ((1 / flt) < 0)
 		{
 			flt = -flt;
@@ -237,8 +357,10 @@ static char *format_txt(char *begin, char *end, va_list ap, char *final)
 		}
 		else
 			txt = ft_strdup("");
-		aux = ft_ftoa( flt, 150);
-		aux = scntfc_not(aux, 6);
+		if (exp < 0)
+			exp = -exp;
+		aux = ft_ftoa(flt, exp + fields.prec + 1);
+		aux = scntfc_not(aux, fields.prec);
 		txt = join_ptr(txt,aux);
 		return (txt);
 	}

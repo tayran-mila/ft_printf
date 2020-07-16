@@ -6,37 +6,12 @@
 /*   By: tmendes- <tmendes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/26 13:12:18 by tmendes-          #+#    #+#             */
-/*   Updated: 2020/07/15 13:01:06 by tmendes-         ###   ########.fr       */
+/*   Updated: 2020/07/16 15:46:40 by tmendes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
 #include "libftprintf.h"
-
-int	nbr_exp(long double nbr)
-{
-	int			nbr_i;
-	int			k;
-
-	if (1/nbr < 0)
-		nbr = -nbr;
-	if(nbr == 0)
-		return (0);
-	else if (nbr >= 1)
-		return ( (nbr_digit(nbr) - 1));
-	else
-	{
-		k = 0;
-		nbr_i = (int)nbr;
-		while (nbr_i == 0)
-		{
-			k--;
-			nbr_i = (int)(10*nbr);
-			nbr = (10*nbr) - (long double)nbr_i;
-		}
-		return (k);
-	}
-}
 
 int main()
 {
@@ -54,9 +29,9 @@ int main()
 
 	ptr = &nbr;
 
-	//nbr = -0000000.00000012345671234567898760000000001234567890;
-	nbr = 123.12355;
-	nbr = -0.0000;
+	nbr = 0000.000012345671234567898760000000001234567890;
+	//nbr = 123.12355;
+	//nbr = -0.0000;
 
 	dig = nbr_exp(nbr);
 	printf("\n\n Exp = %d\n\n", dig);
@@ -71,10 +46,11 @@ int main()
 	chr = 'T';
 	ptr = &chr;
 	iptr = &nptr;
-	print1 = printf("\nOr_Printf: %% hexa: %d \\o/ %n%p %g", num, iptr, ptr, nbr);
+	dig = 20;
+	print1 = printf("\nOr_Printf: %% hexa: %d \\o/ %n%p %.700g", num, iptr, ptr, nbr);
 	printf(" %d\n",print1);
 	*iptr = 0;
-	print2 = ft_printf("\nFt_Printf: %% hexa: %d \\o/ %n%p %g", num, iptr, ptr, nbr);
+	print2 = ft_printf("\nFt_Printf: %% hexa: %d \\o/ %n%p %.700g", num, iptr, ptr, nbr);
 	printf(" %d\n\n",print2);
 	return(0);
 }
