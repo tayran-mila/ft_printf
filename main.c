@@ -6,7 +6,7 @@
 /*   By: tmendes- <tmendes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/26 13:12:18 by tmendes-          #+#    #+#             */
-/*   Updated: 2020/07/16 15:46:40 by tmendes-         ###   ########.fr       */
+/*   Updated: 2020/07/17 13:29:00 by tmendes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,12 +29,12 @@ int main()
 
 	ptr = &nbr;
 
-	nbr = 0000.000012345671234567898760000000001234567890;
-	//nbr = 123.12355;
-	//nbr = -0.0000;
+	//nbr = 12345678901234567890123456789012345678901234567890.1234567890;
+	nbr = 12385678900000000000000000000000000000000000000000.0;
+	//nbr = 999699.0000;
+	//nbr = -100000000000000000000000000000000000000000.0000;
 
 	dig = nbr_exp(nbr);
-	printf("\n\n Exp = %d\n\n", dig);
 
 	dig = 3;
 	str = ft_ftoa(nbr, 150);
@@ -47,11 +47,11 @@ int main()
 	ptr = &chr;
 	iptr = &nptr;
 	dig = 20;
-	print1 = printf("\nOr_Printf: %% hexa: %d \\o/ %n%p %.700g", num, iptr, ptr, nbr);
-	printf(" %d\n",print1);
 	*iptr = 0;
-	print2 = ft_printf("\nFt_Printf: %% hexa: %d \\o/ %n%p %.700g", num, iptr, ptr, nbr);
+	print2 = ft_printf("\nFt_Printf: %% hexa: %d \\o/ %n%p %.25g", num, iptr, ptr, nbr);
 	printf(" %d\n\n",print2);
+	print1 = printf("\nOr_Printf: %% hexa: %d \\o/ %n%p %.25g", num, iptr, ptr, nbr);
+	printf(" %d\n",print1);
 	return(0);
 }
 

@@ -6,7 +6,7 @@
 /*   By: tmendes- <tmendes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/26 13:31:44 by tmendes-          #+#    #+#             */
-/*   Updated: 2020/07/16 15:46:38 by tmendes-         ###   ########.fr       */
+/*   Updated: 2020/07/17 13:24:23 by tmendes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,16 +55,28 @@ int	nbr_exp(long double nbr)
 	}
 }
 
-static char *unpad(char *nbr)
+static char *unpad(char *nbr, char chr)
 {
-	int	k;
+	int		k;
+	char	*exp;
 
+	exp = ft_strchr(nbr, 'e');
 	k = ft_strlen(nbr) - 1;
-	while ((*(nbr + k) == '0' || *(nbr + k) == '.') &&
-	k > 0 && *(nbr + (k - 1)) != '-')
+	if (chr == 'e')
 	{
-		*(nbr + k) = 0;
-		k--;
+		k -= ft_strlen(exp);
+		while ((*(nbr + k) == '0' || *(nbr + k) == '.') &&
+		k > 0 && *(nbr + (k - 1)) != '-')
+			k--;
+		ft_memmove((nbr + k + 1), exp, ft_strlen(exp) + 1);
+	}
+	else
+	{
+		while (*(nbr + k) == '0' && k > 0 && *(nbr + (k - 1)) != '-')
+			k--;
+		if ( *(nbr + k) == '.')
+			*(nbr + k) = 0;
+		*(nbr + k + 1) = 0;
 	}
 	return (nbr);
 }
@@ -75,14 +87,26 @@ static char	*p_exp(char *nbr, int prec)
 	int		k;
 	char	chr;
 
+	printf ("\nNBR1: %s  prec = %d", nbr, prec);
 	k = 1;
 	while ( *(nbr + k) != '.')
 		k++;
-	ft_memmove((nbr + k), (nbr + k + 1), prec + 1);
-	chr = *(nbr + prec + 1);
-	*(nbr + prec + 1) = 0;
+	ft_memmove((nbr + k), (nbr + k + 1), prec + 2);
+	chr = *(nbr + prec + 2);
+	printf("\nchar: %c", *(nbr + prec + 2));
+	*(nbr + prec + 2) = 0;
+	printf ("\nNBR2: %s  ", nbr);
 	if ( chr >= '5')
 		nbr = round_str(nbr);
+	printf ("\nNBR3: %s  ", nbr);
+	if (*nbr == '0')
+	{
+		nbr = ft_memmove(nbr, (nbr + 1), prec + 2);
+		k--;
+	}
+	else
+		*(nbr + prec + 1) = 0;
+	printf ("\nNBR4: %s  ", nbr);
 	ft_memmove((nbr + 2), (nbr + 1), prec + 1);
 	*(nbr + 1) = '.';
 	nbr = join_ptr(nbr,"e+");
@@ -91,6 +115,7 @@ static char	*p_exp(char *nbr, int prec)
 		nbr = join_ptr(nbr,"0");
 	exp = ft_llitoa(k, 10, 'a');
 	nbr = join_ptr(nbr, exp);
+	printf ("\n\nNBR5: %s  \n\n", nbr);
 	free(exp);
 	exp = NULL;
 	return (nbr);
@@ -132,11 +157,21 @@ static char	*n_exp(char *nbr, int prec)
 
 static char	*scntfc_not(char *nbr, int prec)
 {
+	char *aux;
+
 	if (*nbr == '0')
+	{
 		nbr = n_exp(nbr, prec);
+		return (nbr);
+	}
 	else
-		nbr = p_exp(nbr, prec);
-	return (nbr);
+	{	aux = ft_strdup("0");
+		aux = join_ptr(aux, nbr);
+		aux = p_exp(aux, prec);
+		free (nbr);
+		nbr = NULL;
+		return (aux);
+	}
 }
 
 char	*str_srch(char *begin, char *set)
@@ -318,7 +353,7 @@ static char *format_txt(char *begin, char *end, va_list ap, char *final)
 	if (conv == 'f')
 	{
 		flt = (long double)va_arg(ap, double);
-		txt = ft_ftoa( flt, 6);
+		txt = ft_ftoa( flt, fields.prec);
 		return (txt);
 	}
 	if (conv == 'g')
@@ -337,13 +372,13 @@ static char *format_txt(char *begin, char *end, va_list ap, char *final)
 			if (exp < 0)
 				exp = -exp;
 			aux = ft_ftoa(flt, exp + fields.prec + 1);
-			aux = unpad(aux);
-			aux = scntfc_not(aux, fields.prec -1);
+			aux = scntfc_not(aux, fields.prec - 1);
+			aux = unpad(aux, 'e');
 			txt = join_ptr(txt,aux);
 		}
 		else
 			txt = ft_ftoa( flt, fields.prec - (exp + 1));		
-		txt = unpad(txt);
+		txt = unpad(txt, 'f');
 		return (txt);
 	}
 	if (conv == 'e')
@@ -360,7 +395,9 @@ static char *format_txt(char *begin, char *end, va_list ap, char *final)
 		if (exp < 0)
 			exp = -exp;
 		aux = ft_ftoa(flt, exp + fields.prec + 1);
+		printf ("\n\nAux: %s\n", aux);
 		aux = scntfc_not(aux, fields.prec);
+		printf ("Aux: %s\n", aux);
 		txt = join_ptr(txt,aux);
 		return (txt);
 	}
