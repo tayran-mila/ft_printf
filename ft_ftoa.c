@@ -6,7 +6,7 @@
 /*   By: tmendes- <tmendes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/09 13:52:39 by tmendes-          #+#    #+#             */
-/*   Updated: 2020/07/15 13:36:49 by tmendes-         ###   ########.fr       */
+/*   Updated: 2020/07/18 16:06:53 by tmendes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,14 +89,14 @@ int	nbr_digit(long double nbr)
 	return (dig);
 }
 
-static long double	pot_b( long double base,  int exp)
+static long double	lpot_b( long double base,  int exp)
 {
 	long double	pot;
 
 	if (exp <= 0)
 		pot = 1;
 	else
-		pot = base * pot_b(base, exp - 1);
+		pot = base * lpot_b(base, exp - 1);
 	return (pot);
 }
 
@@ -115,10 +115,10 @@ static char *integer(long double nbr)
 	*final = '0';
 	while (k < dig)
 	{
-		nbr_f = nbr/pot_b(10, (dig -1 - k));
+		nbr_f = nbr/lpot_b(10, (dig -1 - k));
 		nbr_i = (int)nbr_f;
 		*(final + k + 1) = nbr_i + '0';
-		nbr = nbr - (long double)(nbr_i * pot_b(10, (dig -1 - k)));
+		nbr = nbr - (long double)(nbr_i * lpot_b(10, (dig -1 - k)));
 		k++;
 	}
 	*(final + k + 1) = 0;
