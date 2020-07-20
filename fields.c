@@ -6,7 +6,7 @@
 /*   By: tmendes- <tmendes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/18 08:32:59 by tmendes-          #+#    #+#             */
-/*   Updated: 2020/07/19 15:15:31 by tmendes-         ###   ########.fr       */
+/*   Updated: 2020/07/20 13:25:14 by tmendes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,25 @@ static t_fields	w_or_p( t_fields fld, char chr)
 	return (fld);
 }
 
+static t_fields	h_or_l(t_fields fld, char *end)
+{
+	fld.itg = 0;
+	while (fld.str < end)
+	{
+		if ( *fld.str == 'h')
+			fld.len_h++;
+		else if ( *fld.str == 'l')
+			fld.len_l++;
+		else
+			fld.rtrn = -1;
+		fld.str++;
+		fld.itg++;
+	}
+	if ( (fld.len_h * fld.len_l) != 0 || fld.itg > 2)
+		fld.rtrn = -1;
+	return (fld);
+}
+
 static t_fields init_fields( t_fields fld)
 {
 	fld.flag = 0;
@@ -81,7 +100,8 @@ static t_fields init_fields( t_fields fld)
 	fld.width = 0;
 	fld.pnt_p = 0;
 	fld.prec = 6;
-	fld.len_mod = 0;
+	fld.len_h = 0;
+	fld.len_l = 0;
 	fld.str = NULL;
 	fld.j = 0;
 	fld.k = 0;
@@ -111,7 +131,6 @@ t_fields set_fields(char *begin, char *end, t_fields fields)
 		fields.str++;
 		fields = w_or_p(fields, 'p');
 	}
-	if (fields.str >= end)
-		fields.rtrn = -1;
+	fields = h_or_l(fields, end);
 	return (fields);
 }
