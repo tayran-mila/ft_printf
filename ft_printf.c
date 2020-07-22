@@ -6,7 +6,7 @@
 /*   By: tmendes- <tmendes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/26 13:31:44 by tmendes-          #+#    #+#             */
-/*   Updated: 2020/07/22 08:19:05 by tmendes-         ###   ########.fr       */
+/*   Updated: 2020/07/22 12:18:35 by tmendes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,19 +28,25 @@ static char			*str_srch(char *begin, char *set)
 	return (NULL);
 }
 
-static t_printf		init_printf(t_printf ptf, char chr)
+static t_printf		init_printf(void)
 {
-	if (chr == 'i')
-	{
-		ptf.rtrn = 0;
-		ptf.len = 0;
-	}
-	if (chr == 'f')
-	{
-		free(ptf.ptr);
-		free(ptf.final);
-		free(ptf.txt);
-	}
+	t_printf ptf;
+
+	ptf.rtrn = 0;
+	ptf.len = 0;
+	ptf.ptr = NULL;
+	ptf.begin = NULL;
+	ptf.end = NULL;
+	ptf.final = NULL;
+	ptf.txt = NULL;
+	return (ptf);
+}
+
+static t_printf		end_printf(t_printf ptf)
+{
+	free(ptf.ptr);
+	free(ptf.final);
+	free(ptf.txt);
 	ptf.ptr = NULL;
 	ptf.begin = NULL;
 	ptf.end = NULL;
@@ -84,7 +90,7 @@ int					ft_printf(const char *format, ...)
 	va_list		ap;
 
 	va_start(ap, format);
-	ptf = init_printf(ptf, 'i');
+	ptf = init_printf();
 	ptf = printf_str(format, ptf, ap);
 	va_end(ap);
 	if (ptf.rtrn == -1)
@@ -92,7 +98,7 @@ int					ft_printf(const char *format, ...)
 	else
 	{
 		ft_putstr_fd(ptf.final, 1);
-		ptf = init_printf(ptf, 'f');
+		ptf = end_printf(ptf);
 		return (ptf.len);
 	}
 }

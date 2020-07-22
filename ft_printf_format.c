@@ -6,7 +6,7 @@
 /*   By: tmendes- <tmendes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/18 08:20:06 by tmendes-          #+#    #+#             */
-/*   Updated: 2020/07/22 08:22:28 by tmendes-         ###   ########.fr       */
+/*   Updated: 2020/07/22 12:33:31 by tmendes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,8 +78,9 @@ char			*signal_space(char *str, t_fields fld)
 
 char			*format_txt(t_printf ptf, va_list ap)
 {
-	t_fields	fld;
+	t_fields fld;
 
+	fld = init_fields();
 	fld = set_fields(ptf.begin, ptf.end, fld);
 	if (fld.rtrn == -1)
 		return (NULL);

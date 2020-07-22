@@ -6,7 +6,7 @@
 /*   By: tmendes- <tmendes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/18 08:32:59 by tmendes-          #+#    #+#             */
-/*   Updated: 2020/07/21 12:14:29 by tmendes-         ###   ########.fr       */
+/*   Updated: 2020/07/22 12:34:13 by tmendes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,8 +82,10 @@ static t_fields		h_or_l(t_fields fld, char *end)
 	return (fld);
 }
 
-static t_fields		init_fields(t_fields fld)
+t_fields			init_fields(void)
 {
+	t_fields fld;
+
 	fld.flag = 0;
 	fld.pnt_w = 0;
 	fld.width = 0;
@@ -100,7 +102,6 @@ static t_fields		init_fields(t_fields fld)
 
 t_fields			set_fields(char *begin, char *end, t_fields fields)
 {
-	fields = init_fields(fields);
 	fields.str = begin;
 	fields = flag(fields);
 	if (*(fields.str) == '*')

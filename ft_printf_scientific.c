@@ -6,7 +6,7 @@
 /*   By: tmendes- <tmendes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/18 08:30:10 by tmendes-          #+#    #+#             */
-/*   Updated: 2020/07/22 09:02:13 by tmendes-         ###   ########.fr       */
+/*   Updated: 2020/07/22 12:35:59 by tmendes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,8 +94,10 @@ static char			*n_exp(char *nbr, int prec, t_scntfc sci)
 	return (nbr);
 }
 
-static t_scntfc		init_scntfc(t_scntfc sci)
+static t_scntfc		init_scntfc(void)
 {
+	t_scntfc sci;
+
 	sci.exp = NULL;
 	sci.ptr = NULL;
 	sci.chr = 0;
@@ -107,7 +109,7 @@ char				*scntfc_not(char *nbr, int prec)
 {
 	t_scntfc sci;
 
-	sci = init_scntfc(sci);
+	sci = init_scntfc();
 	if (*nbr == '0')
 		nbr = n_exp(nbr, prec, sci);
 	else
@@ -118,6 +120,6 @@ char				*scntfc_not(char *nbr, int prec)
 		nbr = p_exp(nbr, prec, sci);
 		free(sci.ptr);
 	}
-	sci = init_scntfc(sci);
+	sci = init_scntfc();
 	return (nbr);
 }
