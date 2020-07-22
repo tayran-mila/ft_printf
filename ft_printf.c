@@ -6,13 +6,13 @@
 /*   By: tmendes- <tmendes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/26 13:31:44 by tmendes-          #+#    #+#             */
-/*   Updated: 2020/07/20 10:05:06 by tmendes-         ###   ########.fr       */
+/*   Updated: 2020/07/22 08:19:05 by tmendes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libftprintf.h"
 
-char	*str_srch(char *begin, char *set)
+static char			*str_srch(char *begin, char *set)
 {
 	int		i;
 	char	*conv;
@@ -28,7 +28,7 @@ char	*str_srch(char *begin, char *set)
 	return (NULL);
 }
 
-static t_printf init_printf(t_printf ptf, char chr)
+static t_printf		init_printf(t_printf ptf, char chr)
 {
 	if (chr == 'i')
 	{
@@ -49,7 +49,7 @@ static t_printf init_printf(t_printf ptf, char chr)
 	return (ptf);
 }
 
-static t_printf	printf_str(const char *format, t_printf ptf, va_list ap)
+static t_printf		printf_str(const char *format, t_printf ptf, va_list ap)
 {
 	ptf.ptr = ft_strdup(format);
 	ptf.final = ft_strdup("");
@@ -59,17 +59,17 @@ static t_printf	printf_str(const char *format, t_printf ptf, va_list ap)
 		{
 			*ptf.begin = 0;
 			ptf.begin++;
-			if (!(ptf.final = join_ptr(ptf.final, ptf.ptr)) ||
+			if (!(ptf.final = ft_concat(ptf.final, ptf.ptr)) ||
 			!(ptf.end = str_srch(ptf.begin, "cspdiuxX%nfge")) ||
 			!(ptf.txt = format_txt(ptf, ap)) ||
-			!(ptf.final = join_ptr(ptf.final, ptf.txt)) ||
+			!(ptf.final = ft_concat(ptf.final, ptf.txt)) ||
 			!(ptf.ptr = ft_memmove(ptf.ptr, (ptf.end + 1),
 			ft_strlen(ptf.end + 1) + 1)))
 				ptf.rtrn = -1;
 		}
 		else
 		{
-			if (!(ptf.final = join_ptr(ptf.final, ptf.ptr)))
+			if (!(ptf.final = ft_concat(ptf.final, ptf.ptr)))
 				ptf.rtrn = -1;
 			*ptf.ptr = 0;
 		}
@@ -78,12 +78,12 @@ static t_printf	printf_str(const char *format, t_printf ptf, va_list ap)
 	return (ptf);
 }
 
-int			ft_printf(const char *format, ...)
+int					ft_printf(const char *format, ...)
 {
 	t_printf	ptf;
-	va_list 	ap;
+	va_list		ap;
 
-	va_start(ap, format);	
+	va_start(ap, format);
 	ptf = init_printf(ptf, 'i');
 	ptf = printf_str(format, ptf, ap);
 	va_end(ap);

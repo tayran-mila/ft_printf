@@ -1,29 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fields.c                                           :+:      :+:    :+:   */
+/*   ft_printf_fields.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tmendes- <tmendes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/18 08:32:59 by tmendes-          #+#    #+#             */
-/*   Updated: 2020/07/20 13:25:14 by tmendes-         ###   ########.fr       */
+/*   Updated: 2020/07/21 12:14:29 by tmendes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libftprintf.h"
 
-static t_llint	pot_b( int base,  int exp)
-{
-	t_llint	pot;
-
-	if (exp <= 0)
-		pot = 1;
-	else
-		pot = base * pot_b(base, exp - 1);
-	return (pot);
-}
-
-static t_fields	flag( t_fields fld)
+static t_fields		flag(t_fields fld)
 {
 	char	*flags;
 
@@ -33,10 +22,10 @@ static t_fields	flag( t_fields fld)
 	fld.k = 0;
 	while (*(flags + fld.j) != 0)
 	{
-		if ( *(fld.str + fld.k) == *(flags + fld.j))
+		if (*(fld.str + fld.k) == *(flags + fld.j))
 		{
-			if ((fld.flag/pot_b(10, fld.j)%10) == 0)
-				fld.flag += pot_b(10, fld.j);
+			if ((fld.flag / ft_lli_pot_b(10, fld.j) % 10) == 0)
+				fld.flag += ft_lli_pot_b(10, fld.j);
 			fld.k++;
 			fld.j = 0;
 		}
@@ -47,7 +36,7 @@ static t_fields	flag( t_fields fld)
 	return (fld);
 }
 
-static t_fields	w_or_p( t_fields fld, char chr)
+static t_fields		w_or_p(t_fields fld, char chr)
 {
 	char	*nbrs;
 
@@ -57,9 +46,9 @@ static t_fields	w_or_p( t_fields fld, char chr)
 	fld.k = 0;
 	while (*(nbrs + fld.j) != 0)
 	{
-		if ( *(fld.str + fld.k) == *(nbrs + fld.j))
+		if (*(fld.str + fld.k) == *(nbrs + fld.j))
 		{
-			fld.itg = 10*fld.itg + *(nbrs + fld.j) - '0';
+			fld.itg = 10 * fld.itg + *(nbrs + fld.j) - '0';
 			fld.k++;
 			fld.j = 0;
 		}
@@ -74,26 +63,26 @@ static t_fields	w_or_p( t_fields fld, char chr)
 	return (fld);
 }
 
-static t_fields	h_or_l(t_fields fld, char *end)
+static t_fields		h_or_l(t_fields fld, char *end)
 {
 	fld.itg = 0;
 	while (fld.str < end)
 	{
-		if ( *fld.str == 'h')
+		if (*fld.str == 'h')
 			fld.len_h++;
-		else if ( *fld.str == 'l')
+		else if (*fld.str == 'l')
 			fld.len_l++;
 		else
 			fld.rtrn = -1;
 		fld.str++;
 		fld.itg++;
 	}
-	if ( (fld.len_h * fld.len_l) != 0 || fld.itg > 2)
+	if ((fld.len_h * fld.len_l) != 0 || fld.itg > 2)
 		fld.rtrn = -1;
 	return (fld);
 }
 
-static t_fields init_fields( t_fields fld)
+static t_fields		init_fields(t_fields fld)
 {
 	fld.flag = 0;
 	fld.pnt_w = 0;
@@ -109,24 +98,24 @@ static t_fields init_fields( t_fields fld)
 	return (fld);
 }
 
-t_fields set_fields(char *begin, char *end, t_fields fields)
+t_fields			set_fields(char *begin, char *end, t_fields fields)
 {
 	fields = init_fields(fields);
 	fields.str = begin;
 	fields = flag(fields);
-	if ( *(fields.str) == '*')
+	if (*(fields.str) == '*')
 	{
 		fields.pnt_w = 1;
 		fields.str++;
 	}
 	else
 		fields = w_or_p(fields, 'w');
-	if ( *(fields.str) == '.' && *(fields.str + 1) == '*')
+	if (*(fields.str) == '.' && *(fields.str + 1) == '*')
 	{
 		fields.pnt_p = 1;
 		fields.str += 2;
 	}
-	else if ( *(fields.str) == '.')
+	else if (*(fields.str) == '.')
 	{
 		fields.str++;
 		fields = w_or_p(fields, 'p');
