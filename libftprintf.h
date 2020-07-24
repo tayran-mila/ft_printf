@@ -6,7 +6,7 @@
 /*   By: tmendes- <tmendes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/26 13:31:08 by tmendes-          #+#    #+#             */
-/*   Updated: 2020/07/22 12:32:39 by tmendes-         ###   ########.fr       */
+/*   Updated: 2020/07/24 07:34:21 by tmendes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,14 +22,16 @@
 
 typedef struct	s_fields
 {
-	int			flag;
+	int			flag[5];
 	int			pnt_w;
 	int			width;
 	int			pnt_p;
 	int			prec;
+	int			prec_s;
 	int			len_h;
 	int			len_l;
 	int			rtrn;
+	void		*ptr;
 	char		*str;
 	long double	flt;
 	int			itg;
@@ -74,7 +76,7 @@ char			*e_scntfc(t_printf ptf, t_fields fld, va_list ap);
 char			*n_or_f(t_printf ptf, t_fields fld, va_list ap);
 char			*g_convesion(t_printf ptf, t_fields fld, va_list ap);
 
-char			*pad_str(char *str, t_fields fld);
+char			*pad_str(char *str, t_fields fld, int len, char chr);
 char			*signal_space(char *str, t_fields fld);
 
 #endif

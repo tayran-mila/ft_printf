@@ -6,7 +6,7 @@
 /*   By: tmendes- <tmendes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/18 08:20:06 by tmendes-          #+#    #+#             */
-/*   Updated: 2020/07/22 08:23:29 by tmendes-         ###   ########.fr       */
+/*   Updated: 2020/07/24 09:18:54 by tmendes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,22 +16,43 @@ char	*c_or_s(t_printf ptf, t_fields fld, va_list ap)
 {
 	if (*ptf.end == 'c')
 	{
-		ptf.txt = ft_strdup("");
+		if (fld.width < 0)
+			fld.flag[4] += 1;
+		fld.width = ft_abs(fld.width);
+		ptf.txt = ft_strdup(" ");
 		if (fld.len_l == 1)
 			*ptf.txt = (char)va_arg(ap, wint_t);
 		else
 			*ptf.txt = (char)va_arg(ap, int);
-		ptf.txt = pad_str(ptf.txt, fld);
+		if (*ptf.txt == 0 && fld.width)
+			fld.width--;
+		ptf.txt = pad_str(ptf.txt, fld, fld.width, 'w');
 	}
 	if (*ptf.end == 's')
 	{
+		if (fld.width < 0)
+			fld.flag[4] += 1;
+		fld.width = ft_abs(fld.width);
 		if (fld.len_l == 1)
-			ptf.txt = ft_strdup((char *)va_arg(ap, wchar_t *));
+			ptf.ptr = (char *)va_arg(ap, wchar_t *);
 		else
-			ptf.txt = ft_strdup(va_arg(ap, char *));
-		if (fld.prec < (int)ft_strlen(ptf.txt))
-			*(ptf.txt + fld.prec) = 0;
-		ptf.txt = pad_str(ptf.txt, fld);
+			ptf.ptr = va_arg(ap, char *);
+		if (fld.prec < 0 || fld.prec_s < 0)
+			fld.prec_s = 0;
+		if (ptf.ptr)
+		{
+			ptf.txt = ft_strdup((char *)ptf.ptr);
+			if (fld.prec < (int)ft_strlen(ptf.txt) && fld.prec_s)
+				*(ptf.txt + fld.prec) = 0;
+		}
+		else
+		{
+			if (fld.prec < (int)ft_strlen("(null)") && fld.prec_s)
+				ptf.txt = ft_strdup("");
+			else
+				ptf.txt = ft_strdup("(null)");
+		}
+		ptf.txt = pad_str(ptf.txt, fld, fld.width, 'w');
 	}
 	return (ptf.txt);
 }
@@ -40,15 +61,28 @@ char	*p_or_d_or_i(t_printf ptf, t_fields fld, va_list ap)
 {
 	if (*ptf.end == 'p')
 	{
-		ptf.txt = ft_strdup("0x");
-		fld.str = ft_llitoa((unsigned long int)va_arg(ap, void *), 16, 'a');
-		ptf.txt = ft_concat(ptf.txt, fld.str);
-		free(fld.str);
-		fld.str = NULL;
-		ptf.txt = pad_str(ptf.txt, fld);
+		if (fld.width < 0)
+			fld.flag[4] += 1;
+		fld.width = ft_abs(fld.width);
+		fld.ptr = va_arg(ap, void *);
+		if (fld.ptr == NULL)
+			ptf.txt = ft_strdup("(nil)");
+		else
+		{	
+			ptf.txt = ft_strdup("0x");	
+			fld.str = ft_llitoa((unsigned long int)fld.ptr, 16, 'a');
+			ptf.txt = ft_concat(ptf.txt, fld.str);
+			free(fld.str);
+			fld.str = NULL;
+		}
+		ptf.txt = pad_str(ptf.txt, fld, fld.width, 'w');
+
 	}
 	if (*ptf.end == 'd' || *ptf.end == 'i')
 	{
+		if (fld.width < 0)
+			fld.flag[4] += 1;
+		fld.width = ft_abs(fld.width);
 		if (fld.len_h == 2)
 			ptf.txt = ft_llitoa((signed char)va_arg(ap, int), 10, 'a');
 		if (fld.len_h == 1)
@@ -60,7 +94,17 @@ char	*p_or_d_or_i(t_printf ptf, t_fields fld, va_list ap)
 		else
 			ptf.txt = ft_llitoa(va_arg(ap, int), 10, 'a');
 		ptf.txt = signal_space(ptf.txt, fld);
-		ptf.txt = pad_str(ptf.txt, fld);
+		if (fld.prec < 0 || fld.prec_s < 0)
+			fld.prec_s = 0;
+		if (fld.prec == 0 && *ptf.txt == '0')
+			*ptf.txt = 0;
+		if (fld.prec_s)
+		{
+			fld.flag[3] += 1;
+			ptf.txt = pad_str(ptf.txt, fld, fld.prec, 'p');
+			fld.flag[3] = 0;
+		}
+		ptf.txt = pad_str(ptf.txt, fld, fld.width, 'w');
 	}
 	return (ptf.txt);
 }
@@ -69,6 +113,9 @@ char	*u_or_p100(t_printf ptf, t_fields fld, va_list ap)
 {
 	if (*ptf.end == 'u')
 	{
+		if (fld.width < 0)
+			fld.flag[4] += 1;
+		fld.width = ft_abs(fld.width);
 		if (fld.len_h == 2)
 			ptf.txt = ft_llitoa((unsigned char)va_arg(ap, int), 10, 'a');
 		if (fld.len_h == 1)
@@ -79,7 +126,18 @@ char	*u_or_p100(t_printf ptf, t_fields fld, va_list ap)
 			ptf.txt = ft_llitoa(va_arg(ap, unsigned long long int), 10, 'a');
 		else
 			ptf.txt = ft_llitoa(va_arg(ap, unsigned int), 10, 'a');
-		ptf.txt = pad_str(ptf.txt, fld);
+		ptf.txt = signal_space(ptf.txt, fld);
+		if (fld.prec < 0 || fld.prec_s < 0)
+			fld.prec_s = 0;
+		if (fld.prec == 0 && *ptf.txt == '0')
+			*ptf.txt = 0;
+		if (fld.prec_s)
+		{
+			fld.flag[3] += 1;
+			ptf.txt = pad_str(ptf.txt, fld, fld.prec, 'p');
+			fld.flag[3] = 0;
+		}
+		ptf.txt = pad_str(ptf.txt, fld, fld.width, 'w');
 	}
 	if (*ptf.end == '%')
 	{
@@ -93,7 +151,10 @@ char	*u_or_p100(t_printf ptf, t_fields fld, va_list ap)
 
 char	*x_decimal(t_printf ptf, t_fields fld, va_list ap)
 {
-	if ((fld.flag % 10) == 1)
+	if (fld.width < 0)
+			fld.flag[4] += 1;
+		fld.width = ft_abs(fld.width);
+	if (fld.flag[0])
 	{
 		ptf.txt = ft_strdup("0 ");
 		*(ptf.txt + 1) = *ptf.end;
@@ -114,6 +175,16 @@ char	*x_decimal(t_printf ptf, t_fields fld, va_list ap)
 	free(fld.str);
 	fld.str = NULL;
 	ptf.txt = signal_space(ptf.txt, fld);
-	ptf.txt = pad_str(ptf.txt, fld);
+	if (fld.prec < 0 || fld.prec_s < 0)
+			fld.prec_s = 0;
+	if (fld.prec == 0 && *ptf.txt == '0')
+			*ptf.txt = 0;
+		if (fld.prec_s)
+		{
+			fld.flag[3] += 1;
+			ptf.txt = pad_str(ptf.txt, fld, fld.prec, 'p');
+			fld.flag[3] = 0;
+		}
+	ptf.txt = pad_str(ptf.txt, fld, fld.width, 'w');
 	return (ptf.txt);
 }

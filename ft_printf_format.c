@@ -6,7 +6,7 @@
 /*   By: tmendes- <tmendes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/18 08:20:06 by tmendes-          #+#    #+#             */
-/*   Updated: 2020/07/22 12:33:31 by tmendes-         ###   ########.fr       */
+/*   Updated: 2020/07/23 14:32:19 by tmendes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,20 +29,23 @@ static char		*repeat_chr(char chr, int nbr)
 	return (str);
 }
 
-char			*pad_str(char *str, t_fields fld)
+char			*pad_str(char *str, t_fields fld, int len, char chr)
 {
-	fld.itg = fld.width - ft_strlen(str);
-	if (fld.itg > 0)
+	fld.itg = len - ft_strlen(str);
+	if (fld.itg >= 0)
 	{
-		if (((fld.flag / 10000) % 10))
+		if (fld.flag[4] && chr != 'p')
 			fld.str = repeat_chr(' ', fld.itg);
 		else
 		{
 			fld.str = str;
-			if (((fld.flag / 1000) % 10))
+			if (fld.flag[3])
 			{
+				if ((*fld.str == '-' || *fld.str == '+') && chr == 'p')
+					fld.itg++;
 				str = repeat_chr('0', fld.itg);
-				if (*fld.str == '-' || *fld.str == ' ' || *fld.str == '+')
+				if ((*fld.str == '-' || *fld.str == ' ' ||
+				*fld.str == '+') && fld.itg != 0)
 				{
 					*str = *fld.str;
 					*fld.str = '0';
@@ -63,9 +66,9 @@ char			*signal_space(char *str, t_fields fld)
 	if (*str != '-')
 	{
 		fld.str = str;
-		if (((fld.flag / 100) % 10))
+		if (fld.flag[2])
 			str = ft_strdup("+");
-		else if (((fld.flag / 10) % 10))
+		else if (fld.flag[1])
 			str = ft_strdup(" ");
 		else
 			str = ft_strdup("");

@@ -6,7 +6,7 @@
 /*   By: tmendes- <tmendes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/26 13:31:44 by tmendes-          #+#    #+#             */
-/*   Updated: 2020/07/22 12:18:35 by tmendes-         ###   ########.fr       */
+/*   Updated: 2020/07/22 16:41:19 by tmendes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,8 @@ static t_printf		printf_str(const char *format, t_printf ptf, va_list ap)
 			!(ptf.ptr = ft_memmove(ptf.ptr, (ptf.end + 1),
 			ft_strlen(ptf.end + 1) + 1)))
 				ptf.rtrn = -1;
+			free(ptf.txt);
+			ptf.txt = NULL;
 		}
 		else
 		{

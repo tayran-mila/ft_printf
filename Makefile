@@ -6,7 +6,7 @@
 #    By: tmendes- <tmendes-@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/06/26 13:31:15 by tmendes-          #+#    #+#              #
-#    Updated: 2020/07/22 14:34:54 by tmendes-         ###   ########.fr        #
+#    Updated: 2020/07/24 15:47:57 by tmendes-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,9 @@ SRCS	= 	ft_printf.c \
 			ft_printf_scientific.c
 			
 OBJS	=	$(SRCS:.c=.o)
-FLAG	=	-Wall -Werror -Wextra
+#FLAG	=	-Wall -Werror -Wextra
+FLAG	=	-Wall -Werror -Wextra -g -fsanitize=address
+#FLAG	=	 
 RM		=	rm -f
 HEAD	= 	libftprintf.h
 AR		=	ar -rcs
@@ -32,9 +34,18 @@ all:		$(NAME)
 
 $(NAME):
 			$(MAKE) -C $(LDIR)
-			gcc -c $(FLAG) $(SRCS) -I.$(HEAD) -L$(LDIR) $(LBFT)
+			gcc -c $(FLAG) $(SRCS) -I.$(HEAD)
 			cp $(LNAME) $(NAME)
 			$(AR) $(NAME) $(OBJS)
+
+#$(NAME):
+#			$(MAKE) -C $(LDIR)
+#			gcc -c $(FLAG) $(SRCS) -I.$(HEAD) -L$(LDIR) $(LBFT)
+#			cp $(LNAME) $(NAME)
+#			$(AR) $(NAME) $(OBJS)
+
+teste:		all clean
+			gcc $(FLAG) main.c -L. $(LPTF) && ./a.out
 
 clean:
 			$(MAKE) clean -C $(LDIR)
