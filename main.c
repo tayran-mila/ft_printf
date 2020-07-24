@@ -6,7 +6,7 @@
 /*   By: tmendes- <tmendes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/26 13:12:18 by tmendes-          #+#    #+#             */
-/*   Updated: 2020/07/22 09:02:30 by tmendes-         ###   ########.fr       */
+/*   Updated: 2020/07/24 18:19:19 by tmendes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,56 +15,40 @@
 
 int main()
 {
-	//char	string[30] = "Printf";
-  	int		num;
-	int		print1;
-	int		print2;
-	char	chr;
-	void	*ptr;
-	int		*iptr;
-	int		nptr;
-	double	nbr;
-	char	*str;
-	int 	dig;
-	wchar_t	*wstr;
+	int		a = -4;
+	int		b = 0;
+	char	c = 'a';
+	int		d = 2147483647;
+	int		e = -2147483648;
+	int		f = 42;
+	int		g = 25;
+	int		h = 4200;
+	int		i = 8;
+	int		j = -12;
+	int		k = 123456789;
+	int		l = 0;
+	int		m = -12345678;
+	char	*n = "abcdefghijklmnop";
+	char	*o = "-a";
+	char	*p = "-12";
+	char	*q = "0";
+	char	*r = "%%";
+	char	*s = "-2147483648";
+	char	*t = "0x12345678";
+	char	*u = "-0";
 
-	ptr = &nbr;
+	printf("\n");
+	printf("%i, %d, %d, %d, %d, %s, %c, %d, %u, %x, %X", i, j, k, l, m, n, c, c, j, j, j); //T2
+	printf("\n");
+	ft_printf("%i, %d, %d, %d, %d, %s, %c, %d, %u, %x, %X", i, j, k, l, m, n, c, c, j, j, j); //T2
+	printf("\n");
+	printf("\n");
 
-	wstr = L"Opa";
-	wstr++;
+	printf("\n");
+	printf("%*.*u, %*.*x, %*.*X, %*.*u, %*.*x, %*.*X, %*.*u, %*.*x, %*.*X, %*.*u, %*.*x, %*.*X, %*.*u, %*.*x, %*.*X, %*.*u, %*.*x, %*.*X, %*.*u, %*.*x, %*.*X, %*.*u, %*.*x, %*.*X", a, b, i, a, b, i, a, b, i, a, b, j, a, b, j, a, b, j, a, b, k, a, b, k, a, b, k, a, b, l, a, b, l, a, b, l, a, b, m, a, b, m, a, b, m, a, b, c, a, b, c, a, b, c, a, b, d, a, b, d, a, b, d, a, b, e, a, b, e, a, b, e);
+	printf("\n");
+	ft_printf("%*.*u, %*.*x, %*.*X, %*.*u, %*.*x, %*.*X, %*.*u, %*.*x, %*.*X, %*.*u, %*.*x, %*.*X, %*.*u, %*.*x, %*.*X, %*.*u, %*.*x, %*.*X, %*.*u, %*.*x, %*.*X, %*.*u, %*.*x, %*.*X", a, b, i, a, b, i, a, b, i, a, b, j, a, b, j, a, b, j, a, b, k, a, b, k, a, b, k, a, b, l, a, b, l, a, b, l, a, b, m, a, b, m, a, b, m, a, b, c, a, b, c, a, b, c, a, b, d, a, b, d, a, b, d, a, b, e, a, b, e, a, b, e);
+	printf("\n");
 
-	//nbr = 12345678901234567890123456789012345678901234567890.1234567890;
-	nbr = -1238567000000000000.0;
-	nbr = 123;
-	//nbr = -100000000000000000000000000000000000000000.0000;
-
-	//str = repeat_chr('T', 7);
-	//printf ("\n\nRepeat: %s\n\n", str);
-
-	dig = nbr_exp(nbr);
-
-	dig = 3;
-	str = ft_ftoa(nbr, 150);
-	str++;
-	dig = 1;
-	dig++;
-	
-	num = (int)nbr;
-	chr = 'T';
-	ptr = &chr;
-	iptr = &nptr;
-	dig = 20;
-	*iptr = 0;
-	print1 = printf("\nOr_Printf: %% hexa: %015X \\o/ %n%p %-# 2.7e ", num, iptr, ptr, nbr);
-	printf(" %d\n",print1);
-	print2 = ft_printf("\nFt_Printf: %% hexa: %015X \\o/ %n%p %-# 2.7e ", num, iptr, ptr, nbr);
-	printf(" %d\n\n",print2);
-	//str = "123456789";
-	//print1 = printf("\nOr_Printf: %-*.*s", 15, 3, str);
-	//printf(" %d\n",print1);
-	//print2 = ft_printf("\nFt_Printf: %-*.*s", 15, 3, str);
-	//printf(" %d\n\n",print2);
-	ptr++;
-	num++;
 	return(0);
 }
