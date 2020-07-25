@@ -6,7 +6,7 @@
 /*   By: tmendes- <tmendes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/18 08:20:06 by tmendes-          #+#    #+#             */
-/*   Updated: 2020/07/25 10:55:06 by tmendes-         ###   ########.fr       */
+/*   Updated: 2020/07/25 12:12:04 by tmendes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ char	*c_or_s(t_printf ptf, t_fields fld, va_list ap)
 		else
 			*ptf.txt = (char)va_arg(ap, int);
 		if (*ptf.txt == 0)
-			*ptf.txt = 1;
+			*ptf.txt = '\x00';
 		ptf.txt = pad_str(ptf.txt, fld, fld.width, 'w');
 	}
 	if (*ptf.end == 's')
