@@ -6,7 +6,7 @@
 /*   By: tmendes- <tmendes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/18 08:20:06 by tmendes-          #+#    #+#             */
-/*   Updated: 2020/07/25 07:15:53 by tmendes-         ###   ########.fr       */
+/*   Updated: 2020/07/25 10:55:06 by tmendes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@ char	*c_or_s(t_printf ptf, t_fields fld, va_list ap)
 			*ptf.txt = (char)va_arg(ap, wint_t);
 		else
 			*ptf.txt = (char)va_arg(ap, int);
-		if (*ptf.txt == 0 && fld.width)
-			fld.width--;
+		if (*ptf.txt == 0)
+			*ptf.txt = 1;
 		ptf.txt = pad_str(ptf.txt, fld, fld.width, 'w');
 	}
 	if (*ptf.end == 's')
@@ -43,6 +43,7 @@ char	*c_or_s(t_printf ptf, t_fields fld, va_list ap)
 			ptf.txt = ft_strdup((char *)ptf.ptr);
 		else
 			ptf.txt = ft_strdup("(null)");
+		ptf.ptr = NULL;
 		if (fld.prec < (int)ft_strlen(ptf.txt) && fld.prec_s)
 			*(ptf.txt + fld.prec) = 0;
 		ptf.txt = pad_str(ptf.txt, fld, fld.width, 'w');
@@ -60,6 +61,18 @@ char	*p_or_d_or_i(t_printf ptf, t_fields fld, va_list ap)
 		fld.ptr = va_arg(ap, void *);
 		ptf.txt = ft_strdup("0x");	
 		fld.str = ft_llitoa((unsigned long int)fld.ptr, 16, 'a');
+
+		if (fld.prec < 0 || fld.prec_s < 0)
+			fld.prec_s = 0;
+		if (fld.prec == 0 && *ptf.txt == '0')
+			*fld.str = 0;
+		if (fld.prec_s)
+		{
+			fld.flag[3] += 1;
+			fld.str = pad_str(fld.str, fld, fld.prec, 'p');
+			fld.flag[3] = 0;
+		}
+
 		ptf.txt = ft_concat(ptf.txt, fld.str);
 		free(fld.str);
 		fld.str = NULL;
@@ -129,10 +142,11 @@ char	*u_or_p100(t_printf ptf, t_fields fld, va_list ap)
 	}
 	if (*ptf.end == '%')
 	{
-		if (ptf.begin == ptf.end)
-			ptf.txt = ft_strdup("%");
-		else
-			return (NULL);
+		if (fld.width < 0)
+			fld.flag[4] += 1;
+		fld.width = ft_abs(fld.width);
+		ptf.txt = ft_strdup("%");
+		ptf.txt = pad_str(ptf.txt, fld, fld.width, 'w');
 	}
 	return (ptf.txt);
 }

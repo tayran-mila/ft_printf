@@ -6,7 +6,7 @@
 /*   By: tmendes- <tmendes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/26 13:31:44 by tmendes-          #+#    #+#             */
-/*   Updated: 2020/07/22 16:41:19 by tmendes-         ###   ########.fr       */
+/*   Updated: 2020/07/25 08:55:33 by tmendes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ static t_printf		printf_str(const char *format, t_printf ptf, va_list ap)
 			*ptf.ptr = 0;
 		}
 	}
-	ptf.len = ft_strlen(ptf.final);
+	ptf.len += ft_strlen(ptf.final);
 	return (ptf);
 }
 

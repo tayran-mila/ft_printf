@@ -6,7 +6,7 @@
 /*   By: tmendes- <tmendes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/18 08:32:59 by tmendes-          #+#    #+#             */
-/*   Updated: 2020/07/24 15:44:49 by tmendes-         ###   ########.fr       */
+/*   Updated: 2020/07/25 08:03:58 by tmendes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,7 @@ t_fields			init_fields(void)
 	fld.j = 0;
 	fld.k = 0;
 	fld.itg = 0;
+	fld.chr = 0;
 	return (fld);
 }
 
