@@ -6,7 +6,7 @@
 /*   By: tmendes- <tmendes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/18 08:20:06 by tmendes-          #+#    #+#             */
-/*   Updated: 2020/07/24 09:18:54 by tmendes-         ###   ########.fr       */
+/*   Updated: 2020/07/25 07:15:53 by tmendes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,18 +40,11 @@ char	*c_or_s(t_printf ptf, t_fields fld, va_list ap)
 		if (fld.prec < 0 || fld.prec_s < 0)
 			fld.prec_s = 0;
 		if (ptf.ptr)
-		{
 			ptf.txt = ft_strdup((char *)ptf.ptr);
-			if (fld.prec < (int)ft_strlen(ptf.txt) && fld.prec_s)
-				*(ptf.txt + fld.prec) = 0;
-		}
 		else
-		{
-			if (fld.prec < (int)ft_strlen("(null)") && fld.prec_s)
-				ptf.txt = ft_strdup("");
-			else
-				ptf.txt = ft_strdup("(null)");
-		}
+			ptf.txt = ft_strdup("(null)");
+		if (fld.prec < (int)ft_strlen(ptf.txt) && fld.prec_s)
+			*(ptf.txt + fld.prec) = 0;
 		ptf.txt = pad_str(ptf.txt, fld, fld.width, 'w');
 	}
 	return (ptf.txt);
@@ -65,16 +58,11 @@ char	*p_or_d_or_i(t_printf ptf, t_fields fld, va_list ap)
 			fld.flag[4] += 1;
 		fld.width = ft_abs(fld.width);
 		fld.ptr = va_arg(ap, void *);
-		if (fld.ptr == NULL)
-			ptf.txt = ft_strdup("(nil)");
-		else
-		{	
-			ptf.txt = ft_strdup("0x");	
-			fld.str = ft_llitoa((unsigned long int)fld.ptr, 16, 'a');
-			ptf.txt = ft_concat(ptf.txt, fld.str);
-			free(fld.str);
-			fld.str = NULL;
-		}
+		ptf.txt = ft_strdup("0x");	
+		fld.str = ft_llitoa((unsigned long int)fld.ptr, 16, 'a');
+		ptf.txt = ft_concat(ptf.txt, fld.str);
+		free(fld.str);
+		fld.str = NULL;
 		ptf.txt = pad_str(ptf.txt, fld, fld.width, 'w');
 
 	}
@@ -170,7 +158,7 @@ char	*x_decimal(t_printf ptf, t_fields fld, va_list ap)
 	if (fld.len_l == 1)
 		fld.str = ft_llitoa(va_arg(ap, unsigned long long int), 16, *ptf.end);
 	else
-		fld.str = ft_llitoa(va_arg(ap, long long int), 16, *ptf.end);
+		fld.str = ft_llitoa(va_arg(ap, unsigned int), 16, *ptf.end);
 	ptf.txt = ft_concat(ptf.txt, fld.str);
 	free(fld.str);
 	fld.str = NULL;
