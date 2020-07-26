@@ -6,7 +6,7 @@
 /*   By: tmendes- <tmendes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/26 13:31:44 by tmendes-          #+#    #+#             */
-/*   Updated: 2020/07/25 12:12:24 by tmendes-         ###   ########.fr       */
+/*   Updated: 2020/07/26 12:15:16 by tmendes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ static t_printf		init_printf(void)
 	ptf.end = NULL;
 	ptf.final = NULL;
 	ptf.txt = NULL;
+	ptf.pstn = NULL;
 	return (ptf);
 }
 
@@ -47,11 +48,13 @@ static t_printf		end_printf(t_printf ptf)
 	free(ptf.ptr);
 	free(ptf.final);
 	free(ptf.txt);
+	free(ptf.pstn);
 	ptf.ptr = NULL;
 	ptf.begin = NULL;
 	ptf.end = NULL;
 	ptf.final = NULL;
 	ptf.txt = NULL;
+	ptf.pstn = NULL;
 	return (ptf);
 }
 
@@ -65,24 +68,21 @@ static t_printf		printf_str(const char *format, t_printf ptf, va_list ap)
 		{
 			*ptf.begin = 0;
 			ptf.begin++;
-			if (!(ptf.final = ft_concat(ptf.final, ptf.ptr)) ||
-			!(ptf.end = str_srch(ptf.begin, "cspdiuxX%nfge")) ||
-			!(ptf.txt = format_txt(ptf, ap)) ||
-			!(ptf.final = ft_concat(ptf.final, ptf.txt)) ||
-			!(ptf.ptr = ft_memmove(ptf.ptr, (ptf.end + 1),
-			ft_strlen(ptf.end + 1) + 1)))
-				ptf.rtrn = -1;
+			ptf.final = ft_concat(ptf.final, ptf.ptr);
+			ptf.end = str_srch(ptf.begin, "cspdiuxX%nfge");
+			ptf = format_txt(ptf, ap);
+			ptf.final = ft_concat(ptf.final, ptf.txt);
+			ptf.ptr = ft_memmove(ptf.ptr, (ptf.end + 1),
+			ft_strlen(ptf.end + 1) + 1);
 			free(ptf.txt);
 			ptf.txt = NULL;
 		}
 		else
 		{
-			if (!(ptf.final = ft_concat(ptf.final, ptf.ptr)))
-				ptf.rtrn = -1;
+			ptf.final = ft_concat(ptf.final, ptf.ptr);
 			*ptf.ptr = 0;
 		}
 	}
-	ptf.len += (int)ft_strlen(ptf.final);
 	return (ptf);
 }
 
@@ -90,17 +90,32 @@ int					ft_printf(const char *format, ...)
 {
 	t_printf	ptf;
 	va_list		ap;
+	int			k;
 
 	va_start(ap, format);
 	ptf = init_printf();
 	ptf = printf_str(format, ptf, ap);
 	va_end(ap);
-	if (ptf.rtrn == -1)
-		return (ptf.rtrn);
-	else
+	if (ptf.final != NULL)
 	{
-		ft_putstr_fd(ptf.final, 1);
+		ptf.len = ft_strlen(ptf.final);
+		k = 0;
+		if(ptf.pstn)
+		{
+			while (*(ptf.pstn + k) != -1)
+			{
+				ptf.final[*(ptf.pstn + k)] = 0;
+				k++;
+			}
+		}
+		write(1, ptf.final, ptf.len);
 		ptf = end_printf(ptf);
 		return (ptf.len);
 	}
+	else
+	{
+		ptf = end_printf(ptf);
+		return (-1);
+	}
+		
 }

@@ -6,7 +6,7 @@
 /*   By: tmendes- <tmendes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/18 08:20:06 by tmendes-          #+#    #+#             */
-/*   Updated: 2020/07/25 08:58:01 by tmendes-         ###   ########.fr       */
+/*   Updated: 2020/07/26 10:15:02 by tmendes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,14 +79,13 @@ char			*signal_space(char *str, t_fields fld)
 	return (str);
 }
 
-char			*format_txt(t_printf ptf, va_list ap)
+t_printf		format_txt(t_printf ptf, va_list ap)
 {
 	t_fields fld;
 
 	fld = init_fields();
 	fld = set_fields(ptf.begin, ptf.end, fld);
-	if (fld.rtrn == -1)
-		return (NULL);
+	ptf.rtrn = fld.rtrn;
 	if (fld.pnt_w)
 		fld.width = va_arg(ap, int);
 	if (fld.pnt_p)
@@ -105,5 +104,6 @@ char			*format_txt(t_printf ptf, va_list ap)
 		return (g_convesion(ptf, fld, ap));
 	if (*ptf.end == 'e')
 		return (e_scntfc(ptf, fld, ap));
-	return (NULL);
+	ptf.rtrn = -1;
+	return (ptf);
 }

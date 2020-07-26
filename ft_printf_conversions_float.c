@@ -6,7 +6,7 @@
 /*   By: tmendes- <tmendes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/18 08:20:06 by tmendes-          #+#    #+#             */
-/*   Updated: 2020/07/23 08:55:02 by tmendes-         ###   ########.fr       */
+/*   Updated: 2020/07/26 10:12:35 by tmendes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ static char		*unpad(char *nbr, char chr)
 	return (nbr);
 }
 
-char			*e_scntfc(t_printf ptf, t_fields fld, va_list ap)
+t_printf			e_scntfc(t_printf ptf, t_fields fld, va_list ap)
 {
 	fld.flt = (long double)va_arg(ap, double);
 	fld.itg = nbr_exp(fld.flt);
@@ -65,10 +65,10 @@ char			*e_scntfc(t_printf ptf, t_fields fld, va_list ap)
 		ptf.txt = unpad(ptf.txt, 'e');
 	ptf.txt = signal_space(ptf.txt, fld);
 	ptf.txt = pad_str(ptf.txt, fld, fld.width, 'w');
-	return (ptf.txt);
+	return (ptf);
 }
 
-char			*n_or_f(t_printf ptf, t_fields fld, va_list ap)
+t_printf			n_or_f(t_printf ptf, t_fields fld, va_list ap)
 {
 	if (*ptf.end == 'n')
 	{
@@ -93,10 +93,10 @@ char			*n_or_f(t_printf ptf, t_fields fld, va_list ap)
 		ptf.txt = signal_space(ptf.txt, fld);
 		ptf.txt = pad_str(ptf.txt, fld, fld.width, 'w');
 	}
-	return (ptf.txt);
+	return (ptf);
 }
 
-char			*g_convesion(t_printf ptf, t_fields fld, va_list ap)
+t_printf			g_convesion(t_printf ptf, t_fields fld, va_list ap)
 {
 	if (fld.prec == 0)
 		fld.prec++;
@@ -122,5 +122,5 @@ char			*g_convesion(t_printf ptf, t_fields fld, va_list ap)
 		ptf.txt = unpad(ptf.txt, 'f');
 	ptf.txt = signal_space(ptf.txt, fld);
 	ptf.txt = pad_str(ptf.txt, fld, fld.width, 'w');
-	return (ptf.txt);
+	return (ptf);
 }

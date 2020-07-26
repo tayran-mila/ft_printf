@@ -6,13 +6,42 @@
 /*   By: tmendes- <tmendes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/18 08:20:06 by tmendes-          #+#    #+#             */
-/*   Updated: 2020/07/25 12:12:04 by tmendes-         ###   ########.fr       */
+/*   Updated: 2020/07/26 10:53:12 by tmendes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libftprintf.h"
 
-char	*c_or_s(t_printf ptf, t_fields fld, va_list ap)
+static long int *hold_null(long int * p_int, int pos)
+{
+	long int	*p_aux;
+	long int	k;
+
+	k = 0;
+	p_aux = p_int;
+	if (!p_int)
+	{
+		if(!(p_int = (long int *)malloc(2 * sizeof(long int))))
+			return (NULL);
+		*p_int = pos;
+		*(p_int + 1) = -1;
+	}
+	else
+	{
+		while (*(p_int + k) != -1)
+			k++;
+		if (!(p_int = (long int *)malloc((k + 2) * sizeof(long int))))
+			return (NULL);
+		*(p_int + k + 1) = -1;
+		*(p_int + k) = pos;
+		while (--k >= 0)
+			*(p_int + k) = *(p_aux + k);
+		free(p_aux);
+	}
+	return (p_int);
+}
+
+t_printf	c_or_s(t_printf ptf, t_fields fld, va_list ap)
 {
 	if (*ptf.end == 'c')
 	{
@@ -25,8 +54,16 @@ char	*c_or_s(t_printf ptf, t_fields fld, va_list ap)
 		else
 			*ptf.txt = (char)va_arg(ap, int);
 		if (*ptf.txt == 0)
-			*ptf.txt = '\x00';
-		ptf.txt = pad_str(ptf.txt, fld, fld.width, 'w');
+		{
+			*ptf.txt = 1;
+			ptf.txt = pad_str(ptf.txt, fld, fld.width, 'w');
+			fld.itg = 0;
+			while (*(ptf.txt + fld.itg) != 1)
+				fld.itg++;
+			ptf.pstn = hold_null(ptf.pstn, ft_strlen(ptf.final) + fld.itg);
+		}
+		else
+			ptf.txt = pad_str(ptf.txt, fld, fld.width, 'w');
 	}
 	if (*ptf.end == 's')
 	{
@@ -34,24 +71,24 @@ char	*c_or_s(t_printf ptf, t_fields fld, va_list ap)
 			fld.flag[4] += 1;
 		fld.width = ft_abs(fld.width);
 		if (fld.len_l == 1)
-			ptf.ptr = (char *)va_arg(ap, wchar_t *);
+			fld.str = (char *)va_arg(ap, wchar_t *);
 		else
-			ptf.ptr = va_arg(ap, char *);
+			fld.str = va_arg(ap, char *);
 		if (fld.prec < 0 || fld.prec_s < 0)
 			fld.prec_s = 0;
-		if (ptf.ptr)
-			ptf.txt = ft_strdup((char *)ptf.ptr);
+		if (fld.str)
+			ptf.txt = ft_strdup((char *)fld.str);
 		else
 			ptf.txt = ft_strdup("(null)");
-		ptf.ptr = NULL;
+		fld.str = NULL;
 		if (fld.prec < (int)ft_strlen(ptf.txt) && fld.prec_s)
 			*(ptf.txt + fld.prec) = 0;
 		ptf.txt = pad_str(ptf.txt, fld, fld.width, 'w');
 	}
-	return (ptf.txt);
+	return (ptf);
 }
 
-char	*p_or_d_or_i(t_printf ptf, t_fields fld, va_list ap)
+t_printf	p_or_d_or_i(t_printf ptf, t_fields fld, va_list ap)
 {
 	if (*ptf.end == 'p')
 	{
@@ -107,10 +144,10 @@ char	*p_or_d_or_i(t_printf ptf, t_fields fld, va_list ap)
 		}
 		ptf.txt = pad_str(ptf.txt, fld, fld.width, 'w');
 	}
-	return (ptf.txt);
+	return (ptf);
 }
 
-char	*u_or_p100(t_printf ptf, t_fields fld, va_list ap)
+t_printf	u_or_p100(t_printf ptf, t_fields fld, va_list ap)
 {
 	if (*ptf.end == 'u')
 	{
@@ -148,10 +185,10 @@ char	*u_or_p100(t_printf ptf, t_fields fld, va_list ap)
 		ptf.txt = ft_strdup("%");
 		ptf.txt = pad_str(ptf.txt, fld, fld.width, 'w');
 	}
-	return (ptf.txt);
+	return (ptf);
 }
 
-char	*x_decimal(t_printf ptf, t_fields fld, va_list ap)
+t_printf	x_decimal(t_printf ptf, t_fields fld, va_list ap)
 {
 	if (fld.width < 0)
 			fld.flag[4] += 1;
@@ -188,5 +225,5 @@ char	*x_decimal(t_printf ptf, t_fields fld, va_list ap)
 			fld.flag[3] = 0;
 		}
 	ptf.txt = pad_str(ptf.txt, fld, fld.width, 'w');
-	return (ptf.txt);
+	return (ptf);
 }
