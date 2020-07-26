@@ -6,7 +6,7 @@
 /*   By: tmendes- <tmendes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/25 20:22:54 by tmendes-          #+#    #+#             */
-/*   Updated: 2020/07/22 08:41:35 by tmendes-         ###   ########.fr       */
+/*   Updated: 2020/07/26 10:02:14 by tmendes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,11 @@ char	*ft_concat(char *s1, char const *s2)
 	unsigned long	k;
 
 	if (!s1 || !s2)
+	{
+		if (s1)
+			free(s1);
 		return (NULL);
+	}
 	len_1 = ft_strlen(s1);
 	size = len_1 + ft_strlen(s2);
 	p = s1;
