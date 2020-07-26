@@ -6,7 +6,7 @@
 /*   By: tmendes- <tmendes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/26 13:31:44 by tmendes-          #+#    #+#             */
-/*   Updated: 2020/07/26 12:15:16 by tmendes-         ###   ########.fr       */
+/*   Updated: 2020/07/26 12:53:14 by tmendes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,12 +68,20 @@ static t_printf		printf_str(const char *format, t_printf ptf, va_list ap)
 		{
 			*ptf.begin = 0;
 			ptf.begin++;
-			ptf.final = ft_concat(ptf.final, ptf.ptr);
-			ptf.end = str_srch(ptf.begin, "cspdiuxX%nfge");
+			if (!(ptf.final = ft_concat(ptf.final, ptf.ptr)) ||
+			!(ptf.end = str_srch(ptf.begin, "cspdiuxX%nfge")))
+			{
+				ptf.rtrn = -1;
+				return (ptf);
+			}
 			ptf = format_txt(ptf, ap);
-			ptf.final = ft_concat(ptf.final, ptf.txt);
-			ptf.ptr = ft_memmove(ptf.ptr, (ptf.end + 1),
-			ft_strlen(ptf.end + 1) + 1);
+			if (!(ptf.final = ft_concat(ptf.final, ptf.txt)) ||
+			!(ptf.ptr = ft_memmove(ptf.ptr, (ptf.end + 1),
+			ft_strlen(ptf.end + 1) + 1)))
+			{
+				ptf.rtrn = -1;
+				return (ptf);
+			}
 			free(ptf.txt);
 			ptf.txt = NULL;
 		}
@@ -96,7 +104,7 @@ int					ft_printf(const char *format, ...)
 	ptf = init_printf();
 	ptf = printf_str(format, ptf, ap);
 	va_end(ap);
-	if (ptf.final != NULL)
+	if (ptf.final != NULL && ptf.rtrn != -1)
 	{
 		ptf.len = ft_strlen(ptf.final);
 		k = 0;
