@@ -6,7 +6,7 @@
 /*   By: tmendes- <tmendes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/18 08:20:06 by tmendes-          #+#    #+#             */
-/*   Updated: 2020/07/26 13:59:20 by tmendes-         ###   ########.fr       */
+/*   Updated: 2020/07/27 19:31:11 by tmendes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,15 +155,15 @@ t_printf	u_or_p100(t_printf ptf, t_fields fld, va_list ap)
 			fld.flag[4] += 1;
 		fld.width = ft_abs(fld.width);
 		if (fld.len_h == 2)
-			ptf.txt = ft_llitoa((unsigned char)va_arg(ap, int), 10, 'a');
+			ptf.txt = ft_ullitoa((unsigned char)va_arg(ap, int), 10, 'a');
 		if (fld.len_h == 1)
-			ptf.txt = ft_llitoa((unsigned short int)va_arg(ap, int), 10, 'a');
+			ptf.txt = ft_ullitoa((unsigned short int)va_arg(ap, int), 10, 'a');
 		if (fld.len_l == 2)
-			ptf.txt = ft_llitoa(va_arg(ap, unsigned long int), 10, 'a');
+			ptf.txt = ft_ullitoa(va_arg(ap, unsigned long int), 10, 'a');
 		if (fld.len_l == 1)
-			ptf.txt = ft_llitoa(va_arg(ap, unsigned long long int), 10, 'a');
+			ptf.txt = ft_ullitoa(va_arg(ap, unsigned long long int), 10, 'a');
 		else
-			ptf.txt = ft_llitoa(va_arg(ap, unsigned int), 10, 'a');
+			ptf.txt = ft_ullitoa(va_arg(ap, unsigned int), 10, 'a');
 		ptf.txt = signal_space(ptf.txt, fld);
 		if (fld.prec < 0 || fld.prec_s < 0)
 			fld.prec_s = 0;
@@ -201,15 +201,15 @@ t_printf	x_decimal(t_printf ptf, t_fields fld, va_list ap)
 	else
 		ptf.txt = ft_strdup("");
 	if (fld.len_h == 2)
-		fld.str = ft_llitoa((unsigned char)va_arg(ap, int), 16, *ptf.end);
+		fld.str = ft_ullitoa((unsigned char)va_arg(ap, int), 16, *ptf.end);
 	if (fld.len_h == 1)
-		fld.str = ft_llitoa((unsigned short int)va_arg(ap, int), 16, *ptf.end);
+		fld.str = ft_ullitoa((unsigned short int)va_arg(ap, int), 16, *ptf.end);
 	if (fld.len_l == 2)
-		fld.str = ft_llitoa(va_arg(ap, unsigned long int), 16, *ptf.end);
+		fld.str = ft_ullitoa(va_arg(ap, unsigned long int), 16, *ptf.end);
 	if (fld.len_l == 1)
-		fld.str = ft_llitoa(va_arg(ap, unsigned long long int), 16, *ptf.end);
+		fld.str = ft_ullitoa(va_arg(ap, unsigned long long int), 16, *ptf.end);
 	else
-		fld.str = ft_llitoa(va_arg(ap, unsigned int), 16, *ptf.end);
+		fld.str = ft_ullitoa(va_arg(ap, unsigned int), 16, *ptf.end);
 	ptf.txt = ft_concat(ptf.txt, fld.str);
 	free(fld.str);
 	fld.str = NULL;

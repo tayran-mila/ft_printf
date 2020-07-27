@@ -6,7 +6,7 @@
 #    By: tmendes- <tmendes-@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/03/11 15:05:27 by tmendes-          #+#    #+#              #
-#    Updated: 2020/07/22 09:19:46 by tmendes-         ###   ########.fr        #
+#    Updated: 2020/07/27 19:27:42 by tmendes-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -56,7 +56,9 @@ SRCS	= 	ft_memset.c \
 			ft_concat.c \
 			ft_strround.c \
 			ft_nbrdigit.c \
-			ft_ftoa.c
+			ft_ftoa.c \
+			ft_ull_nbrdigit.c \
+			ft_ullitoa.c
 			
 BSRC	=	ft_lstnew.c \
 			ft_lstadd_front.c \
@@ -66,7 +68,7 @@ BSRC	=	ft_lstnew.c \
 			ft_lstdelone.c \
 			ft_lstclear.c \
 			ft_lstiter.c \
-			ft_lstmap.c
+			ft_lstmap.c \
 
 OBJS	=	$(SRCS:.c=.o)
 BOBJ	=	$(BSRC:.c=.o)

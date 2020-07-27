@@ -6,7 +6,7 @@
 /*   By: tmendes- <tmendes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/01 14:03:02 by tmendes-          #+#    #+#             */
-/*   Updated: 2020/07/22 09:33:49 by tmendes-         ###   ########.fr       */
+/*   Updated: 2020/07/27 19:13:13 by tmendes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,9 +51,11 @@ void				ft_putendl_fd(char *s, int fd);
 void				ft_putnbr_fd(int n, int fd);
 char				*ft_strdup(const char *s);
 
-typedef	long long int	t_llint;
+typedef	long long int			t_llint;
+typedef	unsigned long long int	t_ullint;
 
 char				*ft_llitoa(t_llint n, int base, char sz);
+char				*ft_ullitoa(t_ullint n, int base, char sz);
 int					ft_abs(int j);
 long int			ft_labs(long int j);
 long long int		ft_llabs(long long int j);
@@ -64,6 +66,7 @@ long double			ft_ld_pot_b(long double base, int exp);
 char				*ft_concat(char *s1, char const *s2);
 char				*ft_strround(char *nbr);
 int					ft_nbrdigit(long double nbr);
+int					ft_ull_nbrdigit(t_ullint nbr, t_ullint base);
 char				*ft_ftoa(long double nbr, int dig);
 
 typedef struct		s_list
