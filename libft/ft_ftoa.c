@@ -6,7 +6,7 @@
 /*   By: tmendes- <tmendes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/09 13:52:39 by tmendes-          #+#    #+#             */
-/*   Updated: 2020/07/22 09:26:41 by tmendes-         ###   ########.fr       */
+/*   Updated: 2020/07/27 09:18:47 by tmendes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,8 @@ static char		*fraction(long double nbr, int dig)
 		k++;
 	}
 	*(final + dig + 1) = 0;
-	if (nbr_i >= 5)
+	nbr_i += (t_llint)(nbr_f + 0.0000000000001);
+	if (nbr_i > 5)
 		final = ft_strround(final);
 	return (final);
 }
