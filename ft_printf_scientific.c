@@ -6,19 +6,19 @@
 /*   By: tmendes- <tmendes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/18 08:30:10 by tmendes-          #+#    #+#             */
-/*   Updated: 2020/07/22 12:35:59 by tmendes-         ###   ########.fr       */
+/*   Updated: 2020/07/27 14:38:22 by tmendes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libftprintf.h"
 
-int					nbr_exp(long double nbr)
+int					nbr_exp(long double nbr, int prec)
 {
 	int			nbr_i;
 	int			k;
 
-	if ((1 / nbr) < 0)
-		nbr = -nbr;
+	nbr = ft_ldabs(nbr);
+	nbr = ((nbr * ft_ld_pot_b(10, prec) + 0.5) / ft_ld_pot_b(10, prec));
 	if (nbr == 0)
 		return (0);
 	else if (nbr >= 1)

@@ -6,7 +6,7 @@
 /*   By: tmendes- <tmendes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/18 08:20:06 by tmendes-          #+#    #+#             */
-/*   Updated: 2020/07/27 07:24:35 by tmendes-         ###   ########.fr       */
+/*   Updated: 2020/07/27 14:37:55 by tmendes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ t_printf			e_scntfc(t_printf ptf, t_fields fld, va_list ap)
 	if (fld.prec < 0)
 			fld.prec = 6;
 	fld.flt = (long double)va_arg(ap, double);
-	fld.itg = nbr_exp(fld.flt);
+	fld.itg = nbr_exp(fld.flt, fld.prec);
 	ptf.txt = ld_signal(fld.flt);
 	fld.flt = ft_ldabs(fld.flt);
 	fld.itg = ft_abs(fld.itg);
@@ -116,7 +116,8 @@ t_printf			g_convesion(t_printf ptf, t_fields fld, va_list ap)
 	if (fld.prec < 0)
 		fld.prec = 6;
 	fld.flt = (long double)va_arg(ap, double);
-	fld.itg = nbr_exp(fld.flt);
+	fld.itg = nbr_exp(fld.flt, fld.prec);
+	printf("\nfld.itg: %d fld.prec: %d\n", fld.itg, fld.prec);
 	if (fld.itg < -4 || fld.itg >= fld.prec)
 	{
 		*ptf.end = 'e';
