@@ -6,7 +6,7 @@
 /*   By: tmendes- <tmendes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/18 08:20:06 by tmendes-          #+#    #+#             */
-/*   Updated: 2020/07/26 12:46:31 by tmendes-         ###   ########.fr       */
+/*   Updated: 2020/07/27 06:52:34 by tmendes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,8 @@ char			*pad_str(char *str, t_fields fld, int len, char chr)
 			fld.str = str;
 			if (fld.flag[3])
 			{
-				if ((*fld.str == '-' || *fld.str == '+') && chr == 'p')
+				if ((*fld.str == '-' || *fld.str == '+' ||
+				*fld.str == ' ') && chr == 'p')
 					fld.itg++;
 				str = repeat_chr('0', fld.itg);
 				if ((*fld.str == '-' || *fld.str == ' ' ||

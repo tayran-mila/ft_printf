@@ -6,7 +6,7 @@
 #    By: tmendes- <tmendes-@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/06/26 13:31:15 by tmendes-          #+#    #+#              #
-#    Updated: 2020/07/25 15:08:18 by tmendes-         ###   ########.fr        #
+#    Updated: 2020/07/27 07:26:32 by tmendes-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,9 +19,9 @@ SRCS	= 	ft_printf.c \
 			ft_printf_scientific.c
 			
 OBJS	=	$(SRCS:.c=.o)
-#FLAG	=	-Wall -Werror -Wextra
+FLAG	=	-Wall -Werror -Wextra
 #FLAG	=	-Wall -Werror -Wextra -g -fsanitize=address
-FLAG	=	 -g -fsanitize=address
+#FLAG	=	 -g -fsanitize=address
 RM		=	rm -f
 HEAD	= 	libftprintf.h
 AR		=	ar -rcs

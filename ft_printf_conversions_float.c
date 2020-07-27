@@ -6,7 +6,7 @@
 /*   By: tmendes- <tmendes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/18 08:20:06 by tmendes-          #+#    #+#             */
-/*   Updated: 2020/07/26 10:12:35 by tmendes-         ###   ########.fr       */
+/*   Updated: 2020/07/27 07:24:35 by tmendes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,11 @@ static char		*unpad(char *nbr, char chr)
 
 t_printf			e_scntfc(t_printf ptf, t_fields fld, va_list ap)
 {
+	if (fld.width < 0)
+		fld.flag[4] += 1;
+	fld.width = ft_abs(fld.width);
+	if (fld.prec < 0)
+			fld.prec = 6;
 	fld.flt = (long double)va_arg(ap, double);
 	fld.itg = nbr_exp(fld.flt);
 	ptf.txt = ld_signal(fld.flt);
@@ -86,6 +91,11 @@ t_printf			n_or_f(t_printf ptf, t_fields fld, va_list ap)
 	}
 	if (*ptf.end == 'f')
 	{
+		if (fld.width < 0)
+			fld.flag[4] += 1;
+		fld.width = ft_abs(fld.width);
+		if (fld.prec < 0)
+			fld.prec = 6;
 		fld.flt = (long double)va_arg(ap, double);
 		ptf.txt = ft_ftoa(fld.flt, fld.prec);
 		if (fld.prec == 0 && fld.flag[0] == 0)
@@ -100,6 +110,11 @@ t_printf			g_convesion(t_printf ptf, t_fields fld, va_list ap)
 {
 	if (fld.prec == 0)
 		fld.prec++;
+	if (fld.width < 0)
+		fld.flag[4] += 1;
+	fld.width = ft_abs(fld.width);
+	if (fld.prec < 0)
+		fld.prec = 6;
 	fld.flt = (long double)va_arg(ap, double);
 	fld.itg = nbr_exp(fld.flt);
 	if (fld.itg < -4 || fld.itg >= fld.prec)
