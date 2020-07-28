@@ -6,7 +6,7 @@
 /*   By: tmendes- <tmendes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/18 08:20:06 by tmendes-          #+#    #+#             */
-/*   Updated: 2020/07/28 07:45:52 by tmendes-         ###   ########.fr       */
+/*   Updated: 2020/07/28 08:27:36 by tmendes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,12 +131,12 @@ t_printf	p_or_d_or_i(t_printf ptf, t_fields fld, va_list ap)
 		if (fld.len_l == 1)
 			ptf.txt = ft_llitoa((long long int)fld.llint, 10, 'a');
 		else
-			ptf.txt = ft_llitoa((int)fld.llint, 10, 'a');
-		ptf.txt = signal_space(ptf.txt, fld);
+			ptf.txt = ft_llitoa((int)fld.llint, 10, 'a');	
 		if (fld.prec < 0 || fld.prec_s < 0)
 			fld.prec_s = 0;
-		if (fld.prec == 0 && *ptf.txt == '0')
+		if (fld.prec == 0 && fld.llint == 0)
 			*ptf.txt = 0;
+		ptf.txt = signal_space(ptf.txt, fld);
 		if (fld.prec_s)
 		{
 			fld.flag[3] += 1;
