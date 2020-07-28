@@ -6,43 +6,12 @@
 /*   By: tmendes- <tmendes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/26 13:12:18 by tmendes-          #+#    #+#             */
-/*   Updated: 2020/07/26 10:23:20 by tmendes-         ###   ########.fr       */
+/*   Updated: 2020/07/28 16:29:02 by tmendes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
 #include "libftprintf.h"
-
-
-static long int *hold_null(long int * p_int, int pos)
-{
-	long int	*p_aux;
-	long int	k;
-
-	k = 0;
-	p_aux = p_int;
-	if (!p_int)
-	{
-		if(!(p_int = (long int *)malloc(2 * sizeof(long int))))
-			return (NULL);
-		*p_int = pos;
-		*(p_int + 1) = -1;
-	}
-	else
-	{
-		while (*(p_int + k) != -1)
-			k++;
-		if (!(p_int = (long int *)malloc((k + 2) * sizeof(long int))))
-			return (NULL);
-		*(p_int + k + 1) = -1;
-		*(p_int + k) = pos;
-		while (--k >= 0)
-			*(p_int + k) = *(p_aux + k);
-		free(p_aux);
-	}
-	return (p_int);
-}
-
 
 int main()
 {
@@ -69,37 +38,40 @@ int main()
 	char	*u = "-0";
 	int		ptf1;
 	int		ptf2;
+	char	*str;
 
-	long int		*pint;
-	int		pk;
+	long long	lli;
 
-	pint = NULL;
-	pk = 0;
+	lli = 22337203685477;
+	//lli = 2147;
 
-	pint = hold_null(pint, 3);
-	pint = hold_null(pint, 528);
-	pint = hold_null(pint, 2);
-	pint = hold_null(pint, 435);
+	unsigned long long int ulli;
+
+	ulli = 999999;
+	str = ft_ullitoa(ulli, 10, 'z');
+	printf("\nstr = %s digt = %d\n", str, ft_ull_nbrdigit(ulli, 10));
+	free(str);
+	str = NULL;
 	printf("\n");
-	while (*(pint + pk) != -1)
-	{
-		printf("%ld ", *(pint + pk));
-		pk++;
-	}
-	printf("\n");
+
 	
-	free(pint);
-	pint = NULL;
 	printf("\n");
-	//ptf1 = printf("%c, %-*c", 0, 0, 0); //T2
-	ptf1 = printf("%c, %-c, %12c, %-3c, %-1c, %1c, %-2c, %-4c, %5c, %3c, %c %c %c %c %c %c %c %c %c %c %c %c %c", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0); //T2
+	ptf1 = printf("%lld", lli); //T2
+	//ptf1 = printf("%.f %.f %.f %.f %.f %.f %.f %.f %.f %.f ", -0.05, -0.15, -2.5, -3.5, -4.5, -5.5, -6.5, -7.5, -8.5, -9.5); //T2
+	//ptf1 = printf("%.f %.f %.f %.f %.f %.f %.f %.f %.f %.f", 0.05, 0.15, 2.5, 3.5, 4.5, 5.5, 6.5, 7.5, 8.5, 9.5);
+	//ptf1 = printf("%.f %.f %.f %.f %.f %.f %.f %.f %.f %.f ", -0.501, -1.55, -2.55, -3.55, -4.55, -5.55, -6.55, -7.55, -8.55, -9.55); //T2
+	//ptf1 = printf("%.f %.f %.f %.f %.f %.f %.f %.f %.f %.f", 0.501, 1.55, 2.55, 3.55, 4.55, 5.55, 6.55, 7.55, 8.55, 9.55);
+	//ptf1 = printf("%c, %-c, %12c, %-3c, %-1c, %1c, %-2c, %-4c, %5c, %3c, %c %c %c %c %c %c %c %c %c %c %c %c %c", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0); //T2
 	//ptf1 = printf("%c, %-c, %12c, %-3c, %-1c, %1c, %-2c, %-4c, %5c, %3c, %-*c, %-*c, %*c, %*c", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0); //T2
 	printf(" %d", ptf1); //T2
 	printf("\n");
 
 	printf("\n");
-	//ptf2 = ft_printf("%c, %-*c", 0, 0, 0); //T2
-	ptf2 = ft_printf("%c, %-c, %12c, %-3c, %-1c, %1c, %-2c, %-4c, %5c, %3c, %c %c %c %c %c %c %c %c %c %c %c %c %c", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0); //T2
+	ptf2 = ft_printf("%lld", lli); //T2
+	//ptf2 = ft_printf("%.f %.f %.f %.f %.f %.f %.f %.f %.f %.f ", -0.05, -0.15, -2.5, -3.5, -4.5, -5.5, -6.5, -7.5, -8.5, -9.5); //T2
+	//ptf2 = ft_printf("%.f %.f %.f %.f %.f %.f %.f %.f %.f %.f", 0.05, 0.15, 2.5, 3.5, 4.5, 5.5, 6.5, 7.5, 8.5, 9.5);
+	//ptf2 = ft_printf("%.f %.f %.f %.f %.f %.f %.f %.f %.f %.f ", -0.501, -1.55, -2.55, -3.55, -4.55, -5.55, -6.55, -7.55, -8.55, -9.55); //T2
+	//ptf2 = ft_printf("%.f %.f %.f %.f %.f %.f %.f %.f %.f %.f", 0.501, 1.55, 2.55, 3.55, 4.55, 5.55, 6.55, 7.55, 8.55, 9.55);	//ptf2 = ft_printf("%c, %-c, %12c, %-3c, %-1c, %1c, %-2c, %-4c, %5c, %3c, %c %c %c %c %c %c %c %c %c %c %c %c %c", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0); //T2
 	//ptf2 = ft_printf("%c, %-c, %12c, %-3c, %-1c, %1c, %-2c, %-4c, %5c, %3c, %-*c, %-*c, %*c, %*c", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0); //T2
 	printf(" %d", ptf2); //T2
 	printf("\n");
