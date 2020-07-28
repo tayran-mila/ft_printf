@@ -6,7 +6,7 @@
 /*   By: tmendes- <tmendes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/18 08:20:06 by tmendes-          #+#    #+#             */
-/*   Updated: 2020/07/28 14:19:25 by tmendes-         ###   ########.fr       */
+/*   Updated: 2020/07/28 15:26:25 by tmendes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,9 +125,9 @@ t_printf	p_or_d_or_i(t_printf ptf, t_fields fld, va_list ap)
 			ptf.txt = ft_llitoa((signed char)fld.llint, 10, 'a');
 		if (fld.len_h == 1)
 			ptf.txt = ft_llitoa((short int)fld.llint, 10, 'a');
-		if (fld.len_l == 2)
-			ptf.txt = ft_llitoa((long int)fld.llint, 10, 'a');
 		if (fld.len_l == 1)
+			ptf.txt = ft_llitoa((long int)fld.llint, 10, 'a');
+		if (fld.len_l == 2)
 			ptf.txt = ft_llitoa((long long int)fld.llint, 10, 'a');
 		else
 			ptf.txt = ft_llitoa((int)fld.llint, 10, 'a');	
@@ -159,9 +159,9 @@ t_printf	u_or_p100(t_printf ptf, t_fields fld, va_list ap)
 			ptf.txt = ft_ullitoa((unsigned char)fld.ullint, 10, 'a');
 		if (fld.len_h == 1)
 			ptf.txt = ft_ullitoa((unsigned short)fld.ullint, 10, 'a');
-		if (fld.len_l == 2)
-			ptf.txt = ft_ullitoa((unsigned long)fld.ullint, 10, 'a');
 		if (fld.len_l == 1)
+			ptf.txt = ft_ullitoa((unsigned long)fld.ullint, 10, 'a');
+		if (fld.len_l == 2)
 			ptf.txt = ft_ullitoa((unsigned long long)fld.ullint, 10, 'a');
 		else
 			ptf.txt = ft_ullitoa((unsigned int)fld.ullint, 10, 'a');
@@ -196,9 +196,9 @@ t_printf	x_decimal(t_printf ptf, t_fields fld, va_list ap)
 		fld.str = ft_ullitoa((unsigned char)fld.ullint, 16, *ptf.end);
 	else if (fld.len_h == 1)
 		fld.str = ft_ullitoa((unsigned short)fld.ullint, 16, *ptf.end);
-	else if (fld.len_l == 2)
-		fld.str = ft_ullitoa((unsigned long)fld.ullint, 16, *ptf.end);
 	else if (fld.len_l == 1)
+		fld.str = ft_ullitoa((unsigned long)fld.ullint, 16, *ptf.end);
+	else if (fld.len_l == 2)
 		fld.str = ft_ullitoa((unsigned long long)fld.ullint, 16, *ptf.end);
 	else
 		fld.str = ft_ullitoa((unsigned int)fld.ullint, 16, *ptf.end);

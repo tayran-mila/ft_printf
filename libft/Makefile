@@ -6,7 +6,7 @@
 #    By: tmendes- <tmendes-@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/03/11 15:05:27 by tmendes-          #+#    #+#              #
-#    Updated: 2020/07/27 19:27:42 by tmendes-         ###   ########.fr        #
+#    Updated: 2020/07/28 14:41:55 by tmendes-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -58,7 +58,8 @@ SRCS	= 	ft_memset.c \
 			ft_nbrdigit.c \
 			ft_ftoa.c \
 			ft_ull_nbrdigit.c \
-			ft_ullitoa.c
+			ft_ullitoa.c \
+			ft_lli_nbrdigit.c
 			
 BSRC	=	ft_lstnew.c \
 			ft_lstadd_front.c \
