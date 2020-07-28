@@ -6,7 +6,7 @@
 /*   By: tmendes- <tmendes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/18 08:20:06 by tmendes-          #+#    #+#             */
-/*   Updated: 2020/07/28 16:33:09 by tmendes-         ###   ########.fr       */
+/*   Updated: 2020/07/28 16:58:26 by tmendes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,11 +123,11 @@ t_printf	p_or_d_or_i(t_printf ptf, t_fields fld, va_list ap)
 		fld.llint = va_arg(ap, t_llint);
 		if (fld.len_h == 2)
 			ptf.txt = ft_llitoa((signed char)fld.llint, 10, 'a');
-		if (fld.len_h == 1)
+		else if (fld.len_h == 1)
 			ptf.txt = ft_llitoa((short int)fld.llint, 10, 'a');
-		if (fld.len_l == 1)
-			ptf.txt = ft_llitoa((long long int)fld.llint, 10, 'a');
-		if (fld.len_l == 2)
+		else if (fld.len_l == 1)
+			ptf.txt = ft_llitoa((long int)fld.llint, 10, 'a');
+		else if (fld.len_l == 2)
 			ptf.txt = ft_llitoa((long long int)fld.llint, 10, 'a');
 		else
 			ptf.txt = ft_llitoa((int)fld.llint, 10, 'a');
@@ -157,11 +157,11 @@ t_printf	u_or_p100(t_printf ptf, t_fields fld, va_list ap)
 		fld.ullint = va_arg(ap, t_ullint);
 		if (fld.len_h == 2)
 			ptf.txt = ft_ullitoa((unsigned char)fld.ullint, 10, 'a');
-		if (fld.len_h == 1)
+		else if (fld.len_h == 1)
 			ptf.txt = ft_ullitoa((unsigned short)fld.ullint, 10, 'a');
-		if (fld.len_l == 1)
+		else if (fld.len_l == 1)
 			ptf.txt = ft_ullitoa((unsigned long)fld.ullint, 10, 'a');
-		if (fld.len_l == 2)
+		else if (fld.len_l == 2)
 			ptf.txt = ft_ullitoa((unsigned long long)fld.ullint, 10, 'a');
 		else
 			ptf.txt = ft_ullitoa((unsigned int)fld.ullint, 10, 'a');
