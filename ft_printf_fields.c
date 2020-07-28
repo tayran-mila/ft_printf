@@ -6,7 +6,7 @@
 /*   By: tmendes- <tmendes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/18 08:32:59 by tmendes-          #+#    #+#             */
-/*   Updated: 2020/07/26 12:54:46 by tmendes-         ###   ########.fr       */
+/*   Updated: 2020/07/28 07:08:51 by tmendes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,9 @@ t_fields			init_fields(void)
 	fld.len_l = 0;
 	fld.ptr = NULL;
 	fld.str = NULL;
+	fld.flt = 0;
+	fld.llint = 0;
+	fld.ullint = 0;
 	fld.j = 0;
 	fld.k = 0;
 	fld.itg = 0;

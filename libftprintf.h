@@ -6,7 +6,7 @@
 /*   By: tmendes- <tmendes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/26 13:31:08 by tmendes-          #+#    #+#             */
-/*   Updated: 2020/07/27 14:35:27 by tmendes-         ###   ########.fr       */
+/*   Updated: 2020/07/28 07:07:07 by tmendes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ typedef struct	s_fields
 	void		*ptr;
 	char		*str;
 	long double	flt;
+	t_llint		llint;
+	t_ullint	ullint;
 	int			itg;
 	int			j;
 	int			k;
@@ -65,8 +67,6 @@ t_printf		format_txt(t_printf ptf, va_list ap);
 t_fields		init_fields(void);
 t_fields		set_fields(char *begin, char *end, t_fields fields);
 char			*scntfc_not(char *nbr, int prec);
-
-typedef	long long int	t_llint;
 
 t_printf		c_or_s(t_printf ptf, t_fields fld, va_list ap);
 t_printf		p_or_d_or_i(t_printf ptf, t_fields fld, va_list ap);

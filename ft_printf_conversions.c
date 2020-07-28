@@ -6,7 +6,7 @@
 /*   By: tmendes- <tmendes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/18 08:20:06 by tmendes-          #+#    #+#             */
-/*   Updated: 2020/07/27 19:31:11 by tmendes-         ###   ########.fr       */
+/*   Updated: 2020/07/28 07:45:52 by tmendes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,16 +121,17 @@ t_printf	p_or_d_or_i(t_printf ptf, t_fields fld, va_list ap)
 		if (fld.width < 0)
 			fld.flag[4] += 1;
 		fld.width = ft_abs(fld.width);
+		fld.llint = (t_llint)va_arg(ap, int);
 		if (fld.len_h == 2)
-			ptf.txt = ft_llitoa((signed char)va_arg(ap, int), 10, 'a');
+			ptf.txt = ft_llitoa((signed char)fld.llint, 10, 'a');
 		if (fld.len_h == 1)
-			ptf.txt = ft_llitoa((short int)va_arg(ap, int), 10, 'a');
+			ptf.txt = ft_llitoa((short int)fld.llint, 10, 'a');
 		if (fld.len_l == 2)
-			ptf.txt = ft_llitoa(va_arg(ap, long int), 10, 'a');
+			ptf.txt = ft_llitoa((long int)fld.llint, 10, 'a');
 		if (fld.len_l == 1)
-			ptf.txt = ft_llitoa(va_arg(ap, long long int), 10, 'a');
+			ptf.txt = ft_llitoa((long long int)fld.llint, 10, 'a');
 		else
-			ptf.txt = ft_llitoa(va_arg(ap, int), 10, 'a');
+			ptf.txt = ft_llitoa((int)fld.llint, 10, 'a');
 		ptf.txt = signal_space(ptf.txt, fld);
 		if (fld.prec < 0 || fld.prec_s < 0)
 			fld.prec_s = 0;
@@ -154,16 +155,17 @@ t_printf	u_or_p100(t_printf ptf, t_fields fld, va_list ap)
 		if (fld.width < 0)
 			fld.flag[4] += 1;
 		fld.width = ft_abs(fld.width);
+		fld.ullint = va_arg(ap, t_ullint);
 		if (fld.len_h == 2)
-			ptf.txt = ft_ullitoa((unsigned char)va_arg(ap, int), 10, 'a');
+			ptf.txt = ft_ullitoa((unsigned char)fld.ullint, 10, 'a');
 		if (fld.len_h == 1)
-			ptf.txt = ft_ullitoa((unsigned short int)va_arg(ap, int), 10, 'a');
+			ptf.txt = ft_ullitoa((unsigned short)fld.ullint, 10, 'a');
 		if (fld.len_l == 2)
-			ptf.txt = ft_ullitoa(va_arg(ap, unsigned long int), 10, 'a');
+			ptf.txt = ft_ullitoa((unsigned long)fld.ullint, 10, 'a');
 		if (fld.len_l == 1)
-			ptf.txt = ft_ullitoa(va_arg(ap, unsigned long long int), 10, 'a');
+			ptf.txt = ft_ullitoa((unsigned long long)fld.ullint, 10, 'a');
 		else
-			ptf.txt = ft_ullitoa(va_arg(ap, unsigned int), 10, 'a');
+			ptf.txt = ft_ullitoa((unsigned int)fld.ullint, 10, 'a');
 		ptf.txt = signal_space(ptf.txt, fld);
 		if (fld.prec < 0 || fld.prec_s < 0)
 			fld.prec_s = 0;
@@ -190,26 +192,27 @@ t_printf	u_or_p100(t_printf ptf, t_fields fld, va_list ap)
 
 t_printf	x_decimal(t_printf ptf, t_fields fld, va_list ap)
 {
+	fld.ullint = va_arg(ap, t_ullint);
+	if (fld.len_h == 2)
+		fld.str = ft_ullitoa((unsigned char)fld.ullint, 16, *ptf.end);
+	else if (fld.len_h == 1)
+		fld.str = ft_ullitoa((unsigned short)fld.ullint, 16, *ptf.end);
+	else if (fld.len_l == 2)
+		fld.str = ft_ullitoa((unsigned long)fld.ullint, 16, *ptf.end);
+	else if (fld.len_l == 1)
+		fld.str = ft_ullitoa((unsigned long long)fld.ullint, 16, *ptf.end);
+	else
+		fld.str = ft_ullitoa((unsigned int)fld.ullint, 16, *ptf.end);
 	if (fld.width < 0)
 			fld.flag[4] += 1;
-		fld.width = ft_abs(fld.width);
-	if (fld.flag[0])
+	fld.width = ft_abs(fld.width);
+	if (fld.flag[0] && fld.ullint)
 	{
 		ptf.txt = ft_strdup("0 ");
 		*(ptf.txt + 1) = *ptf.end;
 	}
 	else
 		ptf.txt = ft_strdup("");
-	if (fld.len_h == 2)
-		fld.str = ft_ullitoa((unsigned char)va_arg(ap, int), 16, *ptf.end);
-	if (fld.len_h == 1)
-		fld.str = ft_ullitoa((unsigned short int)va_arg(ap, int), 16, *ptf.end);
-	if (fld.len_l == 2)
-		fld.str = ft_ullitoa(va_arg(ap, unsigned long int), 16, *ptf.end);
-	if (fld.len_l == 1)
-		fld.str = ft_ullitoa(va_arg(ap, unsigned long long int), 16, *ptf.end);
-	else
-		fld.str = ft_ullitoa(va_arg(ap, unsigned int), 16, *ptf.end);
 	ptf.txt = ft_concat(ptf.txt, fld.str);
 	free(fld.str);
 	fld.str = NULL;
