@@ -6,7 +6,7 @@
 /*   By: tmendes- <tmendes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/18 08:20:06 by tmendes-          #+#    #+#             */
-/*   Updated: 2020/07/28 08:46:21 by tmendes-         ###   ########.fr       */
+/*   Updated: 2020/07/28 11:49:58 by tmendes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,6 @@ t_printf	p_or_d_or_i(t_printf ptf, t_fields fld, va_list ap)
 			fld.str = pad_str(fld.str, fld, fld.prec, 'p');
 			fld.flag[3] = 0;
 		}
-
 		ptf.txt = ft_concat(ptf.txt, fld.str);
 		free(fld.str);
 		fld.str = NULL;
@@ -224,9 +223,9 @@ t_printf	x_decimal(t_printf ptf, t_fields fld, va_list ap)
 		fld.str = pad_str(fld.str, fld, fld.prec, 'p');
 		fld.flag[3] = 0;
 	}
+	fld.str = pad_str(fld.str, fld, (fld.width - ft_strlen(ptf.txt)), 'w');
 	ptf.txt = ft_concat(ptf.txt, fld.str);
 	free(fld.str);
 	fld.str = NULL;
-	ptf.txt = pad_str(ptf.txt, fld, fld.width, 'w');
 	return (ptf);
 }
