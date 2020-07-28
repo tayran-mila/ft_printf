@@ -6,7 +6,7 @@
 /*   By: tmendes- <tmendes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/26 19:21:46 by tmendes-          #+#    #+#             */
-/*   Updated: 2020/07/28 15:39:48 by tmendes-         ###   ########.fr       */
+/*   Updated: 2020/07/28 16:14:14 by tmendes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static char		change_base(int nbr, char sz)
 	return (0);
 }
 
-char			*ft_llitoa(t_llint n, t_llint base, char sz)
+char			*ft_llitoa(t_llint n, int base, char sz)
 {
 	char	*p;
 	int		k;
@@ -46,7 +46,7 @@ char			*ft_llitoa(t_llint n, t_llint base, char sz)
 	while (k >= 0 && *(p + k) != '-')
 	{
 		*(p + k) = change_base(-(n % base), sz);
-		n = n / base;
+		n = (t_llint)(n / base);
 		k--;
 	}
 	return (p);
