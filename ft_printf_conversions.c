@@ -6,7 +6,7 @@
 /*   By: tmendes- <tmendes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/18 08:20:06 by tmendes-          #+#    #+#             */
-/*   Updated: 2020/07/28 08:27:36 by tmendes-         ###   ########.fr       */
+/*   Updated: 2020/07/28 08:46:21 by tmendes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -166,11 +166,11 @@ t_printf	u_or_p100(t_printf ptf, t_fields fld, va_list ap)
 			ptf.txt = ft_ullitoa((unsigned long long)fld.ullint, 10, 'a');
 		else
 			ptf.txt = ft_ullitoa((unsigned int)fld.ullint, 10, 'a');
-		ptf.txt = signal_space(ptf.txt, fld);
 		if (fld.prec < 0 || fld.prec_s < 0)
 			fld.prec_s = 0;
-		if (fld.prec == 0 && *ptf.txt == '0')
+		if (fld.prec == 0 && fld.ullint == 0)
 			*ptf.txt = 0;
+		ptf.txt = signal_space(ptf.txt, fld);
 		if (fld.prec_s)
 		{
 			fld.flag[3] += 1;
@@ -213,20 +213,20 @@ t_printf	x_decimal(t_printf ptf, t_fields fld, va_list ap)
 	}
 	else
 		ptf.txt = ft_strdup("");
+	if (fld.prec < 0 || fld.prec_s < 0)
+			fld.prec_s = 0;
+	if (fld.prec == 0 && fld.ullint == 0)
+			*fld.str = 0;
+	fld.str = signal_space(fld.str, fld);
+	if (fld.prec_s)
+	{
+		fld.flag[3] += 1;
+		fld.str = pad_str(fld.str, fld, fld.prec, 'p');
+		fld.flag[3] = 0;
+	}
 	ptf.txt = ft_concat(ptf.txt, fld.str);
 	free(fld.str);
 	fld.str = NULL;
-	ptf.txt = signal_space(ptf.txt, fld);
-	if (fld.prec < 0 || fld.prec_s < 0)
-			fld.prec_s = 0;
-	if (fld.prec == 0 && *ptf.txt == '0')
-			*ptf.txt = 0;
-		if (fld.prec_s)
-		{
-			fld.flag[3] += 1;
-			ptf.txt = pad_str(ptf.txt, fld, fld.prec, 'p');
-			fld.flag[3] = 0;
-		}
 	ptf.txt = pad_str(ptf.txt, fld, fld.width, 'w');
 	return (ptf);
 }
