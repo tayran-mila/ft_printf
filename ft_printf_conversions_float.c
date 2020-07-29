@@ -6,7 +6,7 @@
 /*   By: tmendes- <tmendes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/18 08:20:06 by tmendes-          #+#    #+#             */
-/*   Updated: 2020/07/29 10:20:43 by tmendes-         ###   ########.fr       */
+/*   Updated: 2020/07/29 12:41:23 by tmendes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,11 +128,11 @@ t_printf			g_convesion(t_printf ptf, t_fields fld, va_list ap)
 		ptf.txt = ld_signal(fld.flt);
 		fld.flt = ft_ldabs(fld.flt);
 		//fld.itg = ft_abs(fld.itg);
-		//fld.str = ft_ftoa(fld.flt, fld.itg + fld.prec + 1, 'r');
-		if (fld.prec >= fld.itg)
-			fld.str = ft_ftoa(fld.flt, (fld.prec - fld.itg + 1), 'r');
+		if (fld.prec >= (fld.itg + 1))
+			fld.str = ft_ftoa(fld.flt, (fld.prec - fld.itg -1), 'r');
 		else
 			fld.str = ft_ftoa(fld.flt, 1, 0);
+		//fld.str = ft_ftoa(fld.flt, fld.itg + fld.prec + 1, 'r');
 		fld.str = scntfc_not(fld.str, fld.prec - 1);
 		if (fld.flag[0] == 0)
 			fld.str = unpad(fld.str, *ptf.end);
