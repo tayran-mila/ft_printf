@@ -6,7 +6,7 @@
 /*   By: tmendes- <tmendes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/01 14:03:02 by tmendes-          #+#    #+#             */
-/*   Updated: 2020/07/28 16:14:58 by tmendes-         ###   ########.fr       */
+/*   Updated: 2020/07/29 08:26:12 by tmendes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ char				*ft_concat(char *s1, char const *s2);
 char				*ft_strround(char *nbr);
 int					ft_nbrdigit(long double nbr);
 int					ft_ull_nbrdigit(t_ullint nbr, t_ullint base);
-char				*ft_ftoa(long double nbr, int dig);
+char				*ft_ftoa(long double nbr, int dig, char rnd);
 int					ft_lli_nbrdigit(t_llint nbr, t_llint base);
 
 typedef struct		s_list

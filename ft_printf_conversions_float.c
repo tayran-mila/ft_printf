@@ -6,7 +6,7 @@
 /*   By: tmendes- <tmendes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/18 08:20:06 by tmendes-          #+#    #+#             */
-/*   Updated: 2020/07/29 07:17:51 by tmendes-         ###   ########.fr       */
+/*   Updated: 2020/07/29 08:30:29 by tmendes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,8 @@ t_printf			e_scntfc(t_printf ptf, t_fields fld, va_list ap)
 	ptf.txt = ld_signal(fld.flt);
 	fld.flt = ft_ldabs(fld.flt);
 	fld.itg = ft_abs(fld.itg);
-	fld.str = ft_ftoa(fld.flt, fld.itg + fld.prec + 1);
+	fld.str = ft_ftoa(fld.flt, fld.itg + fld.prec + 1, 0);
+	printf("\nfld.str: %s\n", fld.str);
 	fld.str = scntfc_not(fld.str, fld.prec);
 	ptf.txt = ft_concat(ptf.txt, fld.str);
 	free(fld.str);
@@ -97,7 +98,7 @@ t_printf			n_or_f(t_printf ptf, t_fields fld, va_list ap)
 		if (fld.prec < 0)
 			fld.prec = 6;
 		fld.flt = (long double)va_arg(ap, double);
-		ptf.txt = ft_ftoa(fld.flt, fld.prec);
+		ptf.txt = ft_ftoa(fld.flt, fld.prec, 'r');
 		if (fld.prec == 0 && fld.flag[0] == 0)
 			ptf.txt = unpad(ptf.txt, 'f');
 		ptf.txt = signal_space(ptf.txt, fld);
@@ -124,7 +125,7 @@ t_printf			g_convesion(t_printf ptf, t_fields fld, va_list ap)
 		ptf.txt = ld_signal(fld.flt);
 		fld.flt = ft_ldabs(fld.flt);
 		fld.itg = ft_abs(fld.itg);
-		fld.str = ft_ftoa(fld.flt, fld.itg + fld.prec + 1);
+		fld.str = ft_ftoa(fld.flt, fld.itg + fld.prec + 1, 0);
 		fld.str = scntfc_not(fld.str, fld.prec - 1);
 		if (fld.flag[0] == 0)
 			fld.str = unpad(fld.str, *ptf.end);
@@ -133,7 +134,7 @@ t_printf			g_convesion(t_printf ptf, t_fields fld, va_list ap)
 		fld.str = NULL;
 	}
 	else
-		ptf.txt = ft_ftoa(fld.flt, fld.prec - (fld.itg + 1));
+		ptf.txt = ft_ftoa(fld.flt, fld.prec - (fld.itg + 1), 'r');
 	if (fld.flag[0] == 0 && *ptf.end != 'e')
 		ptf.txt = unpad(ptf.txt, 'f');
 	ptf.txt = signal_space(ptf.txt, fld);
