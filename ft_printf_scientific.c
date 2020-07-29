@@ -6,7 +6,7 @@
 /*   By: tmendes- <tmendes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/18 08:30:10 by tmendes-          #+#    #+#             */
-/*   Updated: 2020/07/29 08:30:25 by tmendes-         ###   ########.fr       */
+/*   Updated: 2020/07/29 08:54:17 by tmendes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,8 @@ static char			*p_exp(char *nbr, int prec, t_scntfc sci)
 	ft_memmove((nbr + sci.itg), (nbr + sci.itg + 1), prec + 2);
 	sci.chr = *(nbr + prec + 2);
 	*(nbr + prec + 2) = 0;
-	if (sci.chr >= '5')
-		nbr = ft_strround(nbr);
+	//if (sci.chr >= '5')
+		//nbr = ft_strround(nbr);
 	if (*nbr == '0')
 	{
 		nbr = ft_memmove(nbr, (nbr + 1), prec + 2);
@@ -81,8 +81,8 @@ static char			*n_exp(char *nbr, int prec, t_scntfc sci)
 	nbr = ft_memmove(nbr, (sci.ptr + sci.itg), prec + 2);
 	sci.chr = *(nbr + prec + 1);
 	*(nbr + prec + 1) = 0;
-	if (sci.chr >= '5')
-		nbr = ft_strround(nbr);
+	//if (sci.chr >= '5')
+	//	nbr = ft_strround(nbr);
 	ft_memmove((nbr + 2), (nbr + 1), prec + 1);
 	*(nbr + 1) = '.';
 	nbr = ft_concat(nbr, "e-");
