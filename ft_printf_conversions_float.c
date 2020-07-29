@@ -6,7 +6,7 @@
 /*   By: tmendes- <tmendes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/18 08:20:06 by tmendes-          #+#    #+#             */
-/*   Updated: 2020/07/27 18:40:51 by tmendes-         ###   ########.fr       */
+/*   Updated: 2020/07/29 07:17:51 by tmendes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ t_printf			e_scntfc(t_printf ptf, t_fields fld, va_list ap)
 	ptf.txt = ld_signal(fld.flt);
 	fld.flt = ft_ldabs(fld.flt);
 	fld.itg = ft_abs(fld.itg);
-	fld.str = ft_ftoa(fld.flt, fld.itg + fld.prec);
+	fld.str = ft_ftoa(fld.flt, fld.itg + fld.prec + 1);
 	fld.str = scntfc_not(fld.str, fld.prec);
 	ptf.txt = ft_concat(ptf.txt, fld.str);
 	free(fld.str);

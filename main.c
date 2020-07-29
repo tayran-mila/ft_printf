@@ -6,7 +6,7 @@
 /*   By: tmendes- <tmendes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/26 13:12:18 by tmendes-          #+#    #+#             */
-/*   Updated: 2020/07/29 06:38:39 by tmendes-         ###   ########.fr       */
+/*   Updated: 2020/07/29 07:15:49 by tmendes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,18 +30,20 @@ int ptf2;
 
 	
 	printf("\n");
-	ptf1 = printf("%ld %hhd %hd", l_neg_1, ch_pos_1, sh_pos_1);
-	ptf1 = printf("%lli %d %ld", ll_neg_1, i_pos_1, l_pos_1);
-	ptf1 = printf("%li %hhi %hi", l_neg_1, ch_pos_1, sh_pos_1);
-	ptf1 = printf("%lli %i %li", ll_neg_1, i_pos_1, l_pos_1);
+	ptf1 = printf("%.7e", 23.375094499);
+	//ptf1 = printf("%ld %hhd %hd", l_neg_1, ch_pos_1, sh_pos_1);
+	//ptf1 = printf("%lli %d %ld", ll_neg_1, i_pos_1, l_pos_1);
+	//ptf1 = printf("%li %hhi %hi", l_neg_1, ch_pos_1, sh_pos_1);
+	//ptf1 = printf("%lli %i %li", ll_neg_1, i_pos_1, l_pos_1);
 	printf(" %d", ptf1);
 	printf("\n");
 
 	printf("\n");
-	ptf2 = ft_printf("%ld %hhd %hd", l_neg_1, ch_pos_1, sh_pos_1);
-	ptf2 = ft_printf("%lli %d %ld", ll_neg_1, i_pos_1, l_pos_1);
-	ptf2 = ft_printf("%li %hhi %hi", l_neg_1, ch_pos_1, sh_pos_1);
-	ptf2 = ft_printf("%lli %i %li", ll_neg_1, i_pos_1, l_pos_1);
+	ptf2 = ft_printf("%.7e", 23.375094499);
+	//ptf2 = ft_printf("%ld %hhd %hd", l_neg_1, ch_pos_1, sh_pos_1);
+	//ptf2 = ft_printf("%lli %d %ld", ll_neg_1, i_pos_1, l_pos_1);
+	//ptf2 = ft_printf("%li %hhi %hi", l_neg_1, ch_pos_1, sh_pos_1);
+	//ptf2 = ft_printf("%lli %i %li", ll_neg_1, i_pos_1, l_pos_1);
 	printf(" %d", ptf2);
 	printf("\n");
 
