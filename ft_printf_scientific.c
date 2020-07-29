@@ -6,7 +6,7 @@
 /*   By: tmendes- <tmendes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/18 08:30:10 by tmendes-          #+#    #+#             */
-/*   Updated: 2020/07/29 10:09:08 by tmendes-         ###   ########.fr       */
+/*   Updated: 2020/07/29 14:17:30 by tmendes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int					nbr_exp(long double nbr, int prec)
 {
-	int			nbr_i;
+	t_llint		nbr_i;
 	int			k;
 
 	nbr = ft_ldabs(nbr);
@@ -26,11 +26,11 @@ int					nbr_exp(long double nbr, int prec)
 	else
 	{
 		k = 0;
-		nbr_i = (int)nbr;
+		nbr_i = (t_llint)nbr;
 		while (nbr_i == 0)
 		{
 			k--;
-			nbr_i = (int)(10 * nbr);
+			nbr_i = (t_llint)(10 * nbr);
 			nbr = (10 * nbr) - (long double)nbr_i;
 		}
 		return (k);
