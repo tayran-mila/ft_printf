@@ -6,7 +6,7 @@
 /*   By: tmendes- <tmendes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/18 08:20:06 by tmendes-          #+#    #+#             */
-/*   Updated: 2020/07/29 15:00:09 by tmendes-         ###   ########.fr       */
+/*   Updated: 2020/07/30 08:12:13 by tmendes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,7 +127,7 @@ t_printf			g_convesion(t_printf ptf, t_fields fld, va_list ap)
 	//printf("\nfld.flt 1 : %Lf\n",fld.flt);
 	//fld.itg = nbr_exp(fld.flt, fld.prec);
 	//printf("\nexp = %d\n", fld.itg);
-	if (fld.itg < -4 || fld.itg >= fld.prec)
+	if (fld.itg < -4 || fld.itg >= fld.prec -1)
 	{
 		*ptf.end = 'e';
 		ptf.txt = ld_signal(fld.flt);
