@@ -6,7 +6,7 @@
 /*   By: tmendes- <tmendes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/18 08:20:06 by tmendes-          #+#    #+#             */
-/*   Updated: 2020/07/28 16:58:26 by tmendes-         ###   ########.fr       */
+/*   Updated: 2020/07/30 15:19:04 by tmendes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,7 +120,10 @@ t_printf	p_or_d_or_i(t_printf ptf, t_fields fld, va_list ap)
 		if (fld.width < 0)
 			fld.flag[4] += 1;
 		fld.width = ft_abs(fld.width);
-		fld.llint = va_arg(ap, t_llint);
+		if (fld.len_h || fld.len_l)
+			fld.llint = va_arg(ap, t_llint);
+		else
+			fld.llint = va_arg(ap, int);
 		if (fld.len_h == 2)
 			ptf.txt = ft_llitoa((signed char)fld.llint, 10, 'a');
 		else if (fld.len_h == 1)
