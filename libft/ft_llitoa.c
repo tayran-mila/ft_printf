@@ -6,39 +6,11 @@
 /*   By: tmendes- <tmendes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/26 19:21:46 by tmendes-          #+#    #+#             */
-/*   Updated: 2020/07/24 06:45:45 by tmendes-         ###   ########.fr       */
+/*   Updated: 2020/07/28 16:14:14 by tmendes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-
-static t_llint	pot_b(t_llint nbr, int base)
-{
-	t_llint	pot;
-
-	if (nbr <= 0)
-		pot = 1;
-	else
-		pot = base * pot_b(nbr - 1, base);
-	return (pot);
-}
-
-static t_llint	m_size(t_llint nbr, int base)
-{
-	t_llint	dig;
-	t_llint	n_aux;
-
-	n_aux = nbr;
-	if (nbr > 0)
-		nbr = -nbr;
-	dig = 1;
-	if (nbr <= -1)
-		while (nbr / base <= -pot_b(dig - 1, base))
-			dig++;
-	if (n_aux < 0)
-		return (dig + 2);
-	return (dig + 1);
-}
 
 static char		change_base(int nbr, char sz)
 {
@@ -53,26 +25,29 @@ static char		change_base(int nbr, char sz)
 
 char			*ft_llitoa(t_llint n, int base, char sz)
 {
-	char		*p;
-	t_llint		k;
-	t_llint		size;
+	char	*p;
+	int		k;
+	int		size;
 
-	size = m_size(n, base);
-	if (!(p = (char *)malloc(size * sizeof(char))))
+	size = ft_lli_nbrdigit(n, base);
+	if (!(p = (char *)malloc((size + 2) * sizeof(char))))
 		return (NULL);
-	k = 0;
+	k = size + 1;
+	*(p + k) = 0;
+	k--;
 	if (n < 0)
-	{
-		p[0] = '-';
-		k++;
-	}
+		*p = '-';
 	else
-		n = -n;
-	while (k <= (size - 2))
 	{
-		p[k] = change_base((-(n / pot_b(size - k - 2, base)) % base), sz);
-		k++;
+		*(p + k) = 0;
+		n = -n;
+		k--;
 	}
-	p[k] = 0;
+	while (k >= 0 && *(p + k) != '-')
+	{
+		*(p + k) = change_base(-(n % base), sz);
+		n = (t_llint)(n / base);
+		k--;
+	}
 	return (p);
 }
