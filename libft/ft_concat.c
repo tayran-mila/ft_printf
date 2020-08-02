@@ -6,7 +6,7 @@
 /*   By: tmendes- <tmendes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/25 20:22:54 by tmendes-          #+#    #+#             */
-/*   Updated: 2020/07/26 10:02:14 by tmendes-         ###   ########.fr       */
+/*   Updated: 2020/08/02 14:53:56 by tmendes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ char	*ft_concat(char *s1, char const *s2)
 	while (++k < len_1)
 		*(s1 + k) = *(p + k);
 	free(p);
-	p = NULL;
 	k--;
 	while (++k < size)
 		*(s1 + k) = *(s2 + k - len_1);

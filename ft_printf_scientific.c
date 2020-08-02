@@ -6,7 +6,7 @@
 /*   By: tmendes- <tmendes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/18 08:30:10 by tmendes-          #+#    #+#             */
-/*   Updated: 2020/07/29 14:17:30 by tmendes-         ###   ########.fr       */
+/*   Updated: 2020/08/02 14:55:14 by tmendes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,8 +81,6 @@ static char			*n_exp(char *nbr, int prec, t_scntfc sci)
 	nbr = ft_memmove(nbr, (sci.ptr + sci.itg), prec + 2);
 	sci.chr = *(nbr + prec + 1);
 	*(nbr + prec + 1) = 0;
-	//if (sci.chr >= '5')
-	//	nbr = ft_strround(nbr);
 	ft_memmove((nbr + 2), (nbr + 1), prec + 1);
 	*(nbr + 1) = '.';
 	nbr = ft_concat(nbr, "e-");

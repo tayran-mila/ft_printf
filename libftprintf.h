@@ -6,7 +6,7 @@
 /*   By: tmendes- <tmendes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/26 13:31:08 by tmendes-          #+#    #+#             */
-/*   Updated: 2020/07/28 07:07:07 by tmendes-         ###   ########.fr       */
+/*   Updated: 2020/08/02 15:35:14 by tmendes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,6 @@ typedef struct	s_scntfc
 int				ft_printf(const char *format, ...);
 int				nbr_exp(long double nbr, int prec);
 t_printf		format_txt(t_printf ptf, va_list ap);
-t_fields		init_fields(void);
 t_fields		set_fields(char *begin, char *end, t_fields fields);
 char			*scntfc_not(char *nbr, int prec);
 
@@ -79,5 +78,9 @@ t_printf		g_convesion(t_printf ptf, t_fields fld, va_list ap);
 
 char			*pad_str(char *str, t_fields fld, int len, char chr);
 char			*signal_space(char *str, t_fields fld);
+
+t_printf		init_printf(void);
+t_fields		init_fields(void);
+t_printf		end_printf(t_printf ptf);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: tmendes- <tmendes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/18 08:32:59 by tmendes-          #+#    #+#             */
-/*   Updated: 2020/07/28 07:08:51 by tmendes-         ###   ########.fr       */
+/*   Updated: 2020/08/02 15:28:11 by tmendes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,19 +37,25 @@ static t_fields		flag(t_fields fld)
 	return (fld);
 }
 
-static t_fields		w_or_p(t_fields fld, char chr)
+static t_fields		init_w_or_p(t_fields fld)
 {
-	char	*nbrs;
-
 	if (*fld.str == '-')
 	{
 		fld.prec_s = -1;
 		fld.str++;
 	}
-	nbrs = "1234567890";
 	fld.itg = 0;
 	fld.j = 0;
 	fld.k = 0;
+	return (fld);
+}
+
+static t_fields		w_or_p(t_fields fld, char chr)
+{
+	char	*nbrs;
+
+	nbrs = "1234567890";
+	fld = init_w_or_p(fld);
 	while (*(nbrs + fld.j) != 0)
 	{
 		if (*(fld.str + fld.k) == *(nbrs + fld.j))
@@ -85,32 +91,6 @@ static t_fields		h_or_l(t_fields fld, char *end)
 	}
 	if ((fld.len_h * fld.len_l) != 0 || fld.itg > 2)
 		fld.rtrn = -1;
-	return (fld);
-}
-
-t_fields			init_fields(void)
-{
-	t_fields	fld;
-	int			k;
-
-	k = -1;
-	while (++k < 5)
-		fld.flag[k] = 0;
-	fld.pnt_w = 0;
-	fld.width = 0;
-	fld.pnt_p = 0;
-	fld.prec = 6;
-	fld.prec_s = 0;
-	fld.len_h = 0;
-	fld.len_l = 0;
-	fld.ptr = NULL;
-	fld.str = NULL;
-	fld.flt = 0;
-	fld.llint = 0;
-	fld.ullint = 0;
-	fld.j = 0;
-	fld.k = 0;
-	fld.itg = 0;
 	return (fld);
 }
 

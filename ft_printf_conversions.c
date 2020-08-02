@@ -6,13 +6,13 @@
 /*   By: tmendes- <tmendes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/18 08:20:06 by tmendes-          #+#    #+#             */
-/*   Updated: 2020/07/30 15:19:04 by tmendes-         ###   ########.fr       */
+/*   Updated: 2020/08/02 17:15:34 by tmendes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libftprintf.h"
 
-static long int *hold_null(long int * p_int, int pos)
+static long int		*hold_null(long int *p_int, int pos)
 {
 	long int	*p_aux;
 	long int	k;
@@ -21,7 +21,7 @@ static long int *hold_null(long int * p_int, int pos)
 	p_aux = p_int;
 	if (!p_int)
 	{
-		if(!(p_int = (long int *)malloc(2 * sizeof(long int))))
+		if (!(p_int = (long int *)malloc(2 * sizeof(long int))))
 			return (NULL);
 		*p_int = pos;
 		*(p_int + 1) = -1;
@@ -41,7 +41,7 @@ static long int *hold_null(long int * p_int, int pos)
 	return (p_int);
 }
 
-t_printf	c_or_s(t_printf ptf, t_fields fld, va_list ap)
+t_printf			c_or_s(t_printf ptf, t_fields fld, va_list ap)
 {
 	if (*ptf.end == 'c')
 	{
@@ -88,7 +88,7 @@ t_printf	c_or_s(t_printf ptf, t_fields fld, va_list ap)
 	return (ptf);
 }
 
-t_printf	p_or_d_or_i(t_printf ptf, t_fields fld, va_list ap)
+t_printf			p_or_d_or_i(t_printf ptf, t_fields fld, va_list ap)
 {
 	if (*ptf.end == 'p')
 	{
@@ -96,9 +96,8 @@ t_printf	p_or_d_or_i(t_printf ptf, t_fields fld, va_list ap)
 			fld.flag[4] += 1;
 		fld.width = ft_abs(fld.width);
 		fld.ptr = va_arg(ap, void *);
-		ptf.txt = ft_strdup("0x");	
+		ptf.txt = ft_strdup("0x");
 		fld.str = ft_llitoa((unsigned long int)fld.ptr, 16, 'a');
-
 		if (fld.prec < 0 || fld.prec_s < 0)
 			fld.prec_s = 0;
 		if (fld.prec == 0 && *ptf.txt == '0')
@@ -113,17 +112,13 @@ t_printf	p_or_d_or_i(t_printf ptf, t_fields fld, va_list ap)
 		free(fld.str);
 		fld.str = NULL;
 		ptf.txt = pad_str(ptf.txt, fld, fld.width, 'w');
-
 	}
 	if (*ptf.end == 'd' || *ptf.end == 'i')
 	{
 		if (fld.width < 0)
 			fld.flag[4] += 1;
 		fld.width = ft_abs(fld.width);
-		if (fld.len_h || fld.len_l)
-			fld.llint = va_arg(ap, t_llint);
-		else
-			fld.llint = va_arg(ap, int);
+		fld.llint = va_arg(ap, t_llint);
 		if (fld.len_h == 2)
 			ptf.txt = ft_llitoa((signed char)fld.llint, 10, 'a');
 		else if (fld.len_h == 1)
@@ -136,7 +131,7 @@ t_printf	p_or_d_or_i(t_printf ptf, t_fields fld, va_list ap)
 			ptf.txt = ft_llitoa((int)fld.llint, 10, 'a');
 		if (fld.prec < 0 || fld.prec_s < 0)
 			fld.prec_s = 0;
-		if (fld.prec == 0 && fld.llint == 0)
+		if (fld.prec == 0 && (int)fld.llint == 0)
 			*ptf.txt = 0;
 		ptf.txt = signal_space(ptf.txt, fld);
 		if (fld.prec_s)
@@ -150,7 +145,7 @@ t_printf	p_or_d_or_i(t_printf ptf, t_fields fld, va_list ap)
 	return (ptf);
 }
 
-t_printf	u_or_p100(t_printf ptf, t_fields fld, va_list ap)
+t_printf			u_or_p100(t_printf ptf, t_fields fld, va_list ap)
 {
 	if (*ptf.end == 'u')
 	{
@@ -170,7 +165,7 @@ t_printf	u_or_p100(t_printf ptf, t_fields fld, va_list ap)
 			ptf.txt = ft_ullitoa((unsigned int)fld.ullint, 10, 'a');
 		if (fld.prec < 0 || fld.prec_s < 0)
 			fld.prec_s = 0;
-		if (fld.prec == 0 && fld.ullint == 0)
+		if (fld.prec == 0 && (int)fld.ullint == 0)
 			*ptf.txt = 0;
 		ptf.txt = signal_space(ptf.txt, fld);
 		if (fld.prec_s)
@@ -192,7 +187,7 @@ t_printf	u_or_p100(t_printf ptf, t_fields fld, va_list ap)
 	return (ptf);
 }
 
-t_printf	x_decimal(t_printf ptf, t_fields fld, va_list ap)
+t_printf			x_decimal(t_printf ptf, t_fields fld, va_list ap)
 {
 	fld.ullint = va_arg(ap, t_ullint);
 	if (fld.len_h == 2)
@@ -206,7 +201,7 @@ t_printf	x_decimal(t_printf ptf, t_fields fld, va_list ap)
 	else
 		fld.str = ft_ullitoa((unsigned int)fld.ullint, 16, *ptf.end);
 	if (fld.width < 0)
-			fld.flag[4] += 1;
+		fld.flag[4] += 1;
 	fld.width = ft_abs(fld.width);
 	if (fld.flag[0] && fld.ullint)
 	{
@@ -216,9 +211,9 @@ t_printf	x_decimal(t_printf ptf, t_fields fld, va_list ap)
 	else
 		ptf.txt = ft_strdup("");
 	if (fld.prec < 0 || fld.prec_s < 0)
-			fld.prec_s = 0;
-	if (fld.prec == 0 && fld.ullint == 0)
-			*fld.str = 0;
+		fld.prec_s = 0;
+	if (fld.prec == 0 && (int)fld.ullint == 0)
+		*fld.str = 0;
 	fld.str = signal_space(fld.str, fld);
 	if (fld.prec_s)
 	{
@@ -229,12 +224,12 @@ t_printf	x_decimal(t_printf ptf, t_fields fld, va_list ap)
 	if (fld.flag[3])
 	{
 		fld.str = pad_str(fld.str, fld, (fld.width - ft_strlen(ptf.txt)), 'w');
-		ptf.txt = ft_concat(ptf.txt, fld.str);		
+		ptf.txt = ft_concat(ptf.txt, fld.str);
 	}
 	else
 	{
 		ptf.txt = ft_concat(ptf.txt, fld.str);
-		ptf.txt = pad_str(ptf.txt, fld, fld.width, 'w');		
+		ptf.txt = pad_str(ptf.txt, fld, fld.width, 'w');
 	}
 	free(fld.str);
 	fld.str = NULL;

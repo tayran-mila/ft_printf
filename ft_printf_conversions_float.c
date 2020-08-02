@@ -6,7 +6,7 @@
 /*   By: tmendes- <tmendes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/18 08:20:06 by tmendes-          #+#    #+#             */
-/*   Updated: 2020/07/30 14:21:29 by tmendes-         ###   ########.fr       */
+/*   Updated: 2020/08/02 17:08:54 by tmendes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,25 +49,22 @@ static char		*unpad(char *nbr, char chr)
 	return (nbr);
 }
 
-t_printf			e_scntfc(t_printf ptf, t_fields fld, va_list ap)
+t_printf		e_scntfc(t_printf ptf, t_fields fld, va_list ap)
 {
 	if (fld.width < 0)
 		fld.flag[4] += 1;
 	fld.width = ft_abs(fld.width);
 	if (fld.prec < 0)
-			fld.prec = 6;
+		fld.prec = 6;
 	fld.flt = (long double)va_arg(ap, double);
 	fld.itg = nbr_exp(fld.flt, fld.prec);
 	ptf.txt = ld_signal(fld.flt);
 	fld.flt = ft_ldabs(fld.flt);
-	//fld.itg = ft_abs(fld.itg);
 	if (fld.prec >= fld.itg)
 		fld.str = ft_ftoa(fld.flt, (fld.prec - fld.itg), 'r');
 	else
 		fld.str = ft_ftoa(fld.flt, 1, 0);
-	//printf("\nfld.str: %s fld.itg: %d\n", fld.str, fld.itg);
 	fld.str = scntfc_not(fld.str, fld.prec);
-	//printf("\nfld.str: %s\n", fld.str);
 	ptf.txt = ft_concat(ptf.txt, fld.str);
 	free(fld.str);
 	fld.str = NULL;
@@ -78,7 +75,7 @@ t_printf			e_scntfc(t_printf ptf, t_fields fld, va_list ap)
 	return (ptf);
 }
 
-t_printf			n_or_f(t_printf ptf, t_fields fld, va_list ap)
+t_printf		n_or_f(t_printf ptf, t_fields fld, va_list ap)
 {
 	if (*ptf.end == 'n')
 	{
@@ -111,7 +108,7 @@ t_printf			n_or_f(t_printf ptf, t_fields fld, va_list ap)
 	return (ptf);
 }
 
-t_printf			g_convesion(t_printf ptf, t_fields fld, va_list ap)
+t_printf		g_convesion(t_printf ptf, t_fields fld, va_list ap)
 {
 	if (fld.prec == 0)
 		fld.prec++;
@@ -122,23 +119,17 @@ t_printf			g_convesion(t_printf ptf, t_fields fld, va_list ap)
 		fld.prec = 6;
 	fld.flt = (long double)va_arg(ap, double);
 	fld.itg = nbr_exp(fld.flt, fld.prec);
-	//printf("\nfld.flt 1 : %Lf\n",fld.flt);
-	//fld.flt = (fld.flt + 5 * (ft_ldabs(fld.flt)/fld.flt) * ft_ld_pot_b(10, (fld.itg - fld.prec)));
-	//printf("\nfld.flt 1 : %Lf\n",fld.flt);
-	fld.itg = nbr_exp((fld.flt + 5 * (ft_ldabs(fld.flt)/fld.flt) * ft_ld_pot_b(10, (fld.itg - fld.prec))), fld.prec);
-	//printf("\nexp = %d\n", fld.itg);
+	fld.itg = nbr_exp((fld.flt + 5 * (ft_ldabs(fld.flt) / fld.flt) * ft_ld_pot_b(10, (fld.itg - fld.prec))), fld.prec);
 	if (fld.itg < -4 || fld.itg >= fld.prec)
 	{
 		fld.itg = nbr_exp(fld.flt, fld.prec);
 		*ptf.end = 'e';
 		ptf.txt = ld_signal(fld.flt);
 		fld.flt = ft_ldabs(fld.flt);
-		//fld.itg = ft_abs(fld.itg);
 		if (fld.prec >= (fld.itg + 1))
-			fld.str = ft_ftoa(fld.flt, (fld.prec - fld.itg -1), 'r');
+			fld.str = ft_ftoa(fld.flt, (fld.prec - fld.itg - 1), 'r');
 		else
 			fld.str = ft_ftoa(fld.flt, 1, 0);
-		//fld.str = ft_ftoa(fld.flt, fld.itg + fld.prec + 1, 'r');
 		fld.str = scntfc_not(fld.str, fld.prec - 1);
 		if (fld.flag[0] == 0)
 			fld.str = unpad(fld.str, *ptf.end);
