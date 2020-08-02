@@ -6,7 +6,7 @@
 /*   By: tmendes- <tmendes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/26 13:31:44 by tmendes-          #+#    #+#             */
-/*   Updated: 2020/08/02 17:02:41 by tmendes-         ###   ########.fr       */
+/*   Updated: 2020/08/02 17:23:02 by tmendes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ static t_printf		ptf_loop(t_printf ptf, va_list ap)
 	}
 	free(ptf.txt);
 	ptf.txt = NULL;
+	return (ptf);
 }
 
 static t_printf		printf_str(const char *format, t_printf ptf, va_list ap)
