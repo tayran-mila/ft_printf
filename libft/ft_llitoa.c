@@ -6,7 +6,7 @@
 /*   By: tmendes- <tmendes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/26 19:21:46 by tmendes-          #+#    #+#             */
-/*   Updated: 2020/08/02 14:47:19 by tmendes-         ###   ########.fr       */
+/*   Updated: 2020/08/04 08:04:59 by tmendes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ char			*ft_llitoa(t_llint n, int base, char sz)
 	if (!(p = (char *)calloc((size + 2), sizeof(char))))
 		return (NULL);
 	k = size;
-	if ((int)n < 0)
+	if (n < 0)
 		*p = '-';
 	else
 	{
