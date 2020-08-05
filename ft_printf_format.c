@@ -6,7 +6,7 @@
 /*   By: tmendes- <tmendes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/18 08:20:06 by tmendes-          #+#    #+#             */
-/*   Updated: 2020/08/05 10:00:44 by tmendes-         ###   ########.fr       */
+/*   Updated: 2020/08/05 13:12:39 by tmendes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,6 +118,8 @@ t_printf		format_txt(t_printf ptf, va_list ap)
 		return (g____type(ptf, fld, ap));
 	if (*ptf.end == 'e')
 		return (e____type(ptf, fld, ap));
+	if (*ptf.end == 'o')
+		return (o____type(ptf, fld, ap));
 	ptf.rtrn = -1;
 	return (ptf);
 }

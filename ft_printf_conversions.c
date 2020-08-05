@@ -6,7 +6,7 @@
 /*   By: tmendes- <tmendes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/18 08:20:06 by tmendes-          #+#    #+#             */
-/*   Updated: 2020/08/05 12:53:08 by tmendes-         ###   ########.fr       */
+/*   Updated: 2020/08/05 13:12:21 by tmendes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,7 +120,7 @@ static t_printf		format_nbr(t_printf ptf, t_fields fld)
 		ptf.txt = pad_str(ptf.txt, fld, fld.prec, 'p');
 		fld.flag[3] = 0;
 	}
-	if (*ptf.end == 'x' || *ptf.end == 'X')
+	if (*ptf.end == 'x' || *ptf.end == 'X' || *ptf.end == 'o')
 	{
 		if (fld.flag[3])
 		{
@@ -230,3 +230,27 @@ t_printf			x____type(t_printf ptf, t_fields fld, va_list ap)
 	ptf = format_nbr(ptf, fld);
 	return (ptf);
 }
+
+t_printf			o____type(t_printf ptf, t_fields fld, va_list ap)
+{
+	fld.ullint = va_arg(ap, t_ullint);
+	if (fld.len_h == 2)
+		ptf.txt = ft_ullitoa((unsigned char)fld.ullint, 8, *ptf.end);
+	else if (fld.len_h == 1)
+		ptf.txt = ft_ullitoa((unsigned short)fld.ullint, 8, *ptf.end);
+	else if (fld.len_l == 1)
+		ptf.txt = ft_ullitoa((unsigned long)fld.ullint, 8, *ptf.end);
+	else if (fld.len_l == 2)
+		ptf.txt = ft_ullitoa((unsigned long long)fld.ullint, 8, *ptf.end);
+	else
+		ptf.txt = ft_ullitoa((unsigned int)fld.ullint, 8, *ptf.end);
+	if (fld.flag[0] && (int)fld.ullint)
+		fld.str = ft_strdup("0");
+	else
+		fld.str = ft_strdup("");
+	fld = fld_process(ptf, fld);
+	ptf.txt = signal_space(ptf.txt, fld);
+	ptf = format_nbr(ptf, fld);
+	return (ptf);
+}
+
