@@ -6,7 +6,7 @@
 /*   By: tmendes- <tmendes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/18 08:20:06 by tmendes-          #+#    #+#             */
-/*   Updated: 2020/08/05 12:47:07 by tmendes-         ###   ########.fr       */
+/*   Updated: 2020/08/05 12:53:08 by tmendes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,7 +148,6 @@ static t_fields		fld_process(t_printf ptf, t_fields fld)
 	fld.width = ft_abs(fld.width);
 	if (fld.prec < 0 || fld.prec_s < 0)
 		fld.prec_s = 0;
-	printf("\nptf.txt: %s\n", ptf.txt);
 	if (*ptf.end == 'd' || *ptf.end == 'i')
 		if (fld.prec == 0 && (int)fld.llint == 0)
 			*ptf.txt = 0;
