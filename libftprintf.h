@@ -6,7 +6,7 @@
 /*   By: tmendes- <tmendes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/26 13:31:08 by tmendes-          #+#    #+#             */
-/*   Updated: 2020/08/02 15:35:14 by tmendes-         ###   ########.fr       */
+/*   Updated: 2020/08/05 09:54:50 by tmendes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,14 +67,18 @@ t_printf		format_txt(t_printf ptf, va_list ap);
 t_fields		set_fields(char *begin, char *end, t_fields fields);
 char			*scntfc_not(char *nbr, int prec);
 
-t_printf		c_or_s(t_printf ptf, t_fields fld, va_list ap);
-t_printf		p_or_d_or_i(t_printf ptf, t_fields fld, va_list ap);
-t_printf		u_or_p100(t_printf ptf, t_fields fld, va_list ap);
-t_printf		x_decimal(t_printf ptf, t_fields fld, va_list ap);
+t_printf		c____type(t_printf ptf, t_fields fld, va_list ap);
+t_printf		s____type(t_printf ptf, t_fields fld, va_list ap);
+t_printf		p____type(t_printf ptf, t_fields fld, va_list ap);
+t_printf		d____type(t_printf ptf, t_fields fld, va_list ap);
+t_printf		u____type(t_printf ptf, t_fields fld, va_list ap);
+t_printf		x____type(t_printf ptf, t_fields fld, va_list ap);
+t_printf		p100_type(t_printf ptf, t_fields fld, va_list ap);
 
-t_printf		e_scntfc(t_printf ptf, t_fields fld, va_list ap);
-t_printf		n_or_f(t_printf ptf, t_fields fld, va_list ap);
-t_printf		g_convesion(t_printf ptf, t_fields fld, va_list ap);
+t_printf		n____type(t_printf ptf, t_fields fld, va_list ap);
+t_printf		f____type(t_printf ptf, t_fields fld, va_list ap);
+t_printf		g____type(t_printf ptf, t_fields fld, va_list ap);
+t_printf		e____type(t_printf ptf, t_fields fld, va_list ap);
 
 char			*pad_str(char *str, t_fields fld, int len, char chr);
 char			*signal_space(char *str, t_fields fld);

@@ -6,7 +6,7 @@
 /*   By: tmendes- <tmendes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/18 08:20:06 by tmendes-          #+#    #+#             */
-/*   Updated: 2020/08/04 13:49:52 by tmendes-         ###   ########.fr       */
+/*   Updated: 2020/08/05 09:55:17 by tmendes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,20 +96,28 @@ t_printf		format_txt(t_printf ptf, va_list ap)
 		fld.width = va_arg(ap, int);
 	if (fld.pnt_p)
 		fld.prec = va_arg(ap, int);
-	if (*ptf.end == 'c' || *ptf.end == 's')
-		return (c_or_s(ptf, fld, ap));
-	if (*ptf.end == 'p' || *ptf.end == 'd' || *ptf.end == 'i')
-		return (p_or_d_or_i(ptf, fld, ap));
-	if (*ptf.end == 'u' || *ptf.end == '%')
-		return (u_or_p100(ptf, fld, ap));
+	if (*ptf.end == 'c')
+		return (c____type(ptf, fld, ap));
+	if (*ptf.end == 's')
+		return (s____type(ptf, fld, ap));
+	if (*ptf.end == 'p')
+		return (p____type(ptf, fld, ap));
+	if (*ptf.end == 'd' || *ptf.end == 'i')
+		return (d____type(ptf, fld, ap));
+	if (*ptf.end == 'u')
+		return (u____type(ptf, fld, ap));
+	if (*ptf.end == '%')
+		return (p100_type(ptf, fld, ap));
 	if (*ptf.end == 'x' || *ptf.end == 'X')
-		return (x_decimal(ptf, fld, ap));
-	if (*ptf.end == 'n' || *ptf.end == 'f')
-		return (n_or_f(ptf, fld, ap));
+		return (x____type(ptf, fld, ap));
+	if (*ptf.end == 'n')
+		return (n____type(ptf, fld, ap));
+	if (*ptf.end == 'f')
+		return (f____type(ptf, fld, ap));
 	if (*ptf.end == 'g')
-		return (g_convesion(ptf, fld, ap));
+		return (g____type(ptf, fld, ap));
 	if (*ptf.end == 'e')
-		return (e_scntfc(ptf, fld, ap));
+		return (e____type(ptf, fld, ap));
 	ptf.rtrn = -1;
 	return (ptf);
 }
