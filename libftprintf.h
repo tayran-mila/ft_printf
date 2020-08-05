@@ -6,7 +6,7 @@
 /*   By: tmendes- <tmendes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/26 13:31:08 by tmendes-          #+#    #+#             */
-/*   Updated: 2020/08/05 09:54:50 by tmendes-         ###   ########.fr       */
+/*   Updated: 2020/08/05 10:00:26 by tmendes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ t_printf		p____type(t_printf ptf, t_fields fld, va_list ap);
 t_printf		d____type(t_printf ptf, t_fields fld, va_list ap);
 t_printf		u____type(t_printf ptf, t_fields fld, va_list ap);
 t_printf		x____type(t_printf ptf, t_fields fld, va_list ap);
-t_printf		p100_type(t_printf ptf, t_fields fld, va_list ap);
+t_printf		p100_type(t_printf ptf, t_fields fld);
 
 t_printf		n____type(t_printf ptf, t_fields fld, va_list ap);
 t_printf		f____type(t_printf ptf, t_fields fld, va_list ap);

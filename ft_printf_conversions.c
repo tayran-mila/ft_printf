@@ -6,7 +6,7 @@
 /*   By: tmendes- <tmendes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/18 08:20:06 by tmendes-          #+#    #+#             */
-/*   Updated: 2020/08/05 08:36:29 by tmendes-         ###   ########.fr       */
+/*   Updated: 2020/08/05 10:01:06 by tmendes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,7 +120,7 @@ static t_printf		format_nbr(t_printf ptf, t_fields fld)
 		ptf.txt = pad_str(ptf.txt, fld, fld.prec, 'p');
 		fld.flag[3] = 0;
 	}
-	if (ptf.end == 'x' || ptf.end == 'X')
+	if (*ptf.end == 'x' || *ptf.end == 'X')
 	{
 		if (fld.flag[3])
 		{
@@ -191,7 +191,7 @@ t_printf			u____type(t_printf ptf, t_fields fld, va_list ap)
 	return (ptf);
 }
 
-t_printf			p100_type(t_printf ptf, t_fields fld, va_list ap)
+t_printf			p100_type(t_printf ptf, t_fields fld)
 {
 	if (fld.width < 0)
 		fld.flag[4] += 1;

@@ -6,7 +6,7 @@
 /*   By: tmendes- <tmendes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/18 08:20:06 by tmendes-          #+#    #+#             */
-/*   Updated: 2020/08/05 09:55:17 by tmendes-         ###   ########.fr       */
+/*   Updated: 2020/08/05 10:00:44 by tmendes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ t_printf		format_txt(t_printf ptf, va_list ap)
 	if (*ptf.end == 'u')
 		return (u____type(ptf, fld, ap));
 	if (*ptf.end == '%')
-		return (p100_type(ptf, fld, ap));
+		return (p100_type(ptf, fld));
 	if (*ptf.end == 'x' || *ptf.end == 'X')
 		return (x____type(ptf, fld, ap));
 	if (*ptf.end == 'n')
