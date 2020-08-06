@@ -6,7 +6,7 @@
 /*   By: tmendes- <tmendes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/26 13:31:44 by tmendes-          #+#    #+#             */
-/*   Updated: 2020/08/06 08:21:46 by tmendes-         ###   ########.fr       */
+/*   Updated: 2020/08/06 14:17:16 by tmendes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static t_printf		ptf_loop(t_printf ptf, va_list ap)
 	*ptf.begin = 0;
 	ptf.begin++;
 	if (!(ptf.final = ft_concat(ptf.final, ptf.ptr)) ||
-	!(ptf.end = str_srch(ptf.begin, "cspdiuxX%nfge")))
+	!(ptf.end = str_srch(ptf.begin, "cspdiuxX%nfgeo")))
 	{
 		ptf.rtrn = -1;
 		return (ptf);

@@ -6,7 +6,7 @@
 /*   By: tmendes- <tmendes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/18 08:20:06 by tmendes-          #+#    #+#             */
-/*   Updated: 2020/08/06 08:16:24 by tmendes-         ###   ########.fr       */
+/*   Updated: 2020/08/06 14:11:33 by tmendes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ static t_printf		bonus(t_printf ptf, t_fields fld, va_list ap)
 		return (g____type(ptf, fld, ap));
 	if (*ptf.end == 'e')
 		return (e____type(ptf, fld, ap));
+	if (*ptf.end == 'o')
+		return (o____type(ptf, fld, ap));
 	ptf.rtrn = -1;
 	return (ptf);
 }

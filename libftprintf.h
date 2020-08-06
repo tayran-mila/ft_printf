@@ -6,7 +6,7 @@
 /*   By: tmendes- <tmendes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/26 13:31:08 by tmendes-          #+#    #+#             */
-/*   Updated: 2020/08/06 08:35:38 by tmendes-         ###   ########.fr       */
+/*   Updated: 2020/08/06 14:12:04 by tmendes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,8 @@ t_printf		s____type(t_printf ptf, t_fields fld, va_list ap);
 t_printf		p____type(t_printf ptf, t_fields fld, va_list ap);
 t_printf		p100_type(t_printf ptf, t_fields fld);
 
+t_printf		format_nbr(t_printf ptf, t_fields fld);
+t_fields		fld_process(t_printf ptf, t_fields fld);
 t_printf		d____type(t_printf ptf, t_fields fld, va_list ap);
 t_printf		u____type(t_printf ptf, t_fields fld, va_list ap);
 t_printf		x____type(t_printf ptf, t_fields fld, va_list ap);
@@ -83,6 +85,7 @@ t_printf		e____type(t_printf ptf, t_fields fld, va_list ap);
 char			*unpad(char *nbr, char chr);
 t_printf		n____type(t_printf ptf, t_fields fld, va_list ap);
 t_printf		f____type(t_printf ptf, t_fields fld, va_list ap);
+t_printf		o____type(t_printf ptf, t_fields fld, va_list ap);
 
 int				nbr_exp(long double nbr, int prec);
 char			*scntfc_not(char *nbr, int prec);
