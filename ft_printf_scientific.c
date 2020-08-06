@@ -6,7 +6,7 @@
 /*   By: tmendes- <tmendes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/18 08:30:10 by tmendes-          #+#    #+#             */
-/*   Updated: 2020/08/02 14:55:14 by tmendes-         ###   ########.fr       */
+/*   Updated: 2020/08/06 08:30:33 by tmendes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,17 +90,6 @@ static char			*n_exp(char *nbr, int prec, t_scntfc sci)
 	nbr = ft_concat(nbr, sci.exp);
 	free(sci.exp);
 	return (nbr);
-}
-
-static t_scntfc		init_scntfc(void)
-{
-	t_scntfc sci;
-
-	sci.exp = NULL;
-	sci.ptr = NULL;
-	sci.chr = 0;
-	sci.itg = 0;
-	return (sci);
 }
 
 char				*scntfc_not(char *nbr, int prec)

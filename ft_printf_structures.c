@@ -6,7 +6,7 @@
 /*   By: tmendes- <tmendes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/02 15:26:47 by tmendes-          #+#    #+#             */
-/*   Updated: 2020/08/02 15:35:21 by tmendes-         ###   ########.fr       */
+/*   Updated: 2020/08/06 08:42:26 by tmendes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,4 +66,15 @@ t_fields		init_fields(void)
 	fld.k = 0;
 	fld.itg = 0;
 	return (fld);
+}
+
+t_scntfc		init_scntfc(void)
+{
+	t_scntfc sci;
+
+	sci.exp = NULL;
+	sci.ptr = NULL;
+	sci.chr = 0;
+	sci.itg = 0;
+	return (sci);
 }
