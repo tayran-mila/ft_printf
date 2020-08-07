@@ -6,26 +6,26 @@
 #    By: tmendes- <tmendes-@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/06/26 13:31:15 by tmendes-          #+#    #+#              #
-#    Updated: 2020/08/06 08:41:32 by tmendes-         ###   ########.fr        #
+#    Updated: 2020/08/07 08:18:14 by tmendes-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	=	libftprintf.a
-SRCS	= 	ft_printf.c \
-			ft_printf_format_00.c \
-			ft_printf_format_01.c \
-			ft_printf_fields.c \
-			ft_printf_conversions_00.c \
-			ft_printf_conversions_01.c \
-			ft_printf_conversions_02.c \
-			ft_printf_conversions_03.c \
-			ft_printf_scientific.c \
-			ft_printf_structures.c
+SRCS	= 	ft_printf_bonus.c \
+			ft_printf_format_00_bonus.c \
+			ft_printf_format_01_bonus.c \
+			ft_printf_fields_bonus.c \
+			ft_printf_conversions_00_bonus.c \
+			ft_printf_conversions_01_bonus.c \
+			ft_printf_conversions_02_bonus.c \
+			ft_printf_conversions_03_bonus.c \
+			ft_printf_scientific_bonus.c \
+			ft_printf_structures_bonus.c
 			
 OBJS	=	$(SRCS:.c=.o)
 FLAG	=	-Wall -Werror -Wextra
 RM		=	rm -f
-HEAD	= 	libftprintf.h
+HEAD	= 	libftprintf_bonus.h
 AR		=	ar -rcs
 LDIR	=	libft/
 LNAME	= 	libft/libft.a
