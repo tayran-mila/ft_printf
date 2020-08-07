@@ -6,13 +6,13 @@
 /*   By: tmendes- <tmendes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/18 08:20:06 by tmendes-          #+#    #+#             */
-/*   Updated: 2020/08/06 14:16:18 by tmendes-         ###   ########.fr       */
+/*   Updated: 2020/08/07 08:56:42 by tmendes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libftprintf.h"
 
-t_printf		format_nbr(t_printf ptf, t_fields fld)
+t_printf			format_nbr(t_printf ptf, t_fields fld)
 {
 	if (fld.prec_s)
 	{
